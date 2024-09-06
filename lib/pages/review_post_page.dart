@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/models/review_post_model.dart';
-import 'package:flutter_psu_course_review/repositories/review_post/review_post_repository.dart';
+import 'package:flutter_psu_course_review/models/models.dart';
+import 'package:flutter_psu_course_review/repositories/repositories.dart';
 
 class ReviewPostPage extends StatefulWidget {
   final ReviewPostModel post;
@@ -13,7 +13,7 @@ class ReviewPostPage extends StatefulWidget {
 
 class _ReviewPostPageState extends State<ReviewPostPage> {
   late Future<List<ReviewPostModel>> _postsFuture;
-  final ReviewPostRepository _repository = ReviewPostRepository();
+  final ReviewPostMockRepo _repository = ReviewPostMockRepo();
 
   @override
   void initState() {

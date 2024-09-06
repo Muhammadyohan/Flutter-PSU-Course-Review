@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/models/review_post_model.dart';
-import 'package:flutter_psu_course_review/pages/review_post_page.dart';
-import 'package:flutter_psu_course_review/repositories/review_post/review_post_repository.dart';
+import 'package:flutter_psu_course_review/models/models.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
+import 'package:flutter_psu_course_review/repositories/repositories.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ReviewPostRepository repository = ReviewPostRepository();
+    final ReviewPostMockRepo repository = ReviewPostMockRepo();
 
     return Scaffold(
       appBar: AppBar(
@@ -58,13 +58,15 @@ class HomePage extends StatelessWidget {
                             final post = posts[index];
                             return Container(
                               width: 200, // Adjust width to fit content
-                              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ReviewPostPage(post: post),
+                                      builder: (context) =>
+                                          ReviewPostPage(post: post),
                                     ),
                                   );
                                 },
@@ -76,7 +78,8 @@ class HomePage extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         // Course Info
                                         Text(
@@ -102,9 +105,11 @@ class HomePage extends StatelessWidget {
                                         Expanded(
                                           child: Text(
                                             post.text,
-                                            style: const TextStyle(fontSize: 14),
+                                            style:
+                                                const TextStyle(fontSize: 14),
                                             overflow: TextOverflow.ellipsis,
-                                            maxLines: 3, // Limit the number of lines
+                                            maxLines:
+                                                3, // Limit the number of lines
                                           ),
                                         ),
                                         const SizedBox(height: 8.0),
@@ -154,13 +159,15 @@ class HomePage extends StatelessWidget {
                             final post = posts[index];
                             return Container(
                               width: 200, // Adjust width to fit content
-                              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ReviewPostPage(post: post),
+                                      builder: (context) =>
+                                          ReviewPostPage(post: post),
                                     ),
                                   );
                                 },
@@ -172,7 +179,8 @@ class HomePage extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         // Course Info
                                         Text(
@@ -198,9 +206,11 @@ class HomePage extends StatelessWidget {
                                         Expanded(
                                           child: Text(
                                             post.text,
-                                            style: const TextStyle(fontSize: 14),
+                                            style:
+                                                const TextStyle(fontSize: 14),
                                             overflow: TextOverflow.ellipsis,
-                                            maxLines: 3, // Limit the number of lines
+                                            maxLines:
+                                                3, // Limit the number of lines
                                           ),
                                         ),
                                         const SizedBox(height: 8.0),

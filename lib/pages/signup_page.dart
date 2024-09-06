@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
-import 'login_page.dart';
-import 'main_page.dart';
+import '../widgets/widgets.dart';
+import 'pages.dart';
 
 class SignupPage extends StatelessWidget {
   @override
@@ -12,10 +11,8 @@ class SignupPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CustomTextField(
-              hintText: 'Username', prefixIcon: (Icons.person)),
-            CustomTextField(
-              hintText: 'Email', prefixIcon: (Icons.email)),
+            CustomTextField(hintText: 'Username', prefixIcon: (Icons.person)),
+            CustomTextField(hintText: 'Email', prefixIcon: (Icons.email)),
             CustomTextField(
                 hintText: 'First Name', prefixIcon: (Icons.person_outline)),
             CustomTextField(

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/models/review_post_model.dart';
-import 'package:flutter_psu_course_review/pages/review_post_page.dart';
-import 'package:flutter_psu_course_review/repositories/review_post/review_post_repository.dart';
-import 'package:flutter_psu_course_review/widgets/my_post_delete_button.dart';
-import 'package:flutter_psu_course_review/widgets/my_post_edit_button.dart';
+import 'package:flutter_psu_course_review/models/models.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
+import 'package:flutter_psu_course_review/repositories/repositories.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class MyPostPage extends StatelessWidget {
   const MyPostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ReviewPostRepository repository = ReviewPostRepository();
+    final ReviewPostMockRepo repository = ReviewPostMockRepo();
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +60,8 @@ class MyPostPage extends StatelessWidget {
                       },
                       child: Card(
                         color: Colors.white,
-                        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -71,7 +71,8 @@ class MyPostPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
@@ -89,7 +90,8 @@ class MyPostPage extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => MyPostEditButton(post: post),
+                                          builder: (context) =>
+                                              MyPostEditButton(post: post),
                                         ),
                                       );
                                     },

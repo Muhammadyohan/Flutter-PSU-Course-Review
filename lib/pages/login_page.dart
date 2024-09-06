@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/pages/home_page.dart';
-import '../widgets/custom_text_field.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
+import '../widgets/widgets.dart';
 //import 'main_page.dart';
 
 class LoginPage extends StatelessWidget {

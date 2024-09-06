@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/models/review_post_model.dart';
-import 'package:flutter_psu_course_review/repositories/review_post/review_post_repository.dart';
-import 'package:flutter_psu_course_review/pages/review_post_page.dart';
+import 'package:flutter_psu_course_review/models/models.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
+import 'package:flutter_psu_course_review/repositories/repositories.dart';
 
 class ReviewPostSearch extends StatefulWidget {
   const ReviewPostSearch({super.key});
@@ -11,7 +11,7 @@ class ReviewPostSearch extends StatefulWidget {
 }
 
 class _ReviewPostSearchState extends State<ReviewPostSearch> {
-  final ReviewPostRepository _repository = ReviewPostRepository();
+  final ReviewPostMockRepo _repository = ReviewPostMockRepo();
   List<ReviewPostModel> _posts = [];
   List<ReviewPostModel> _filteredPosts = [];
   String _searchQuery = '';
