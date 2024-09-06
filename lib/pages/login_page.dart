@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_psu_course_review/pages/home_page.dart';
 import '../widgets/custom_text_field.dart';
-import 'main_page.dart';
+//import 'main_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -62,7 +63,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MainPage()));
+                                    builder: (context) => HomePage()));
                           },
                           child: Text(
                             'LOGIN',
