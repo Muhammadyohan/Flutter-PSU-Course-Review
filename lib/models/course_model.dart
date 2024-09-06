@@ -1,11 +1,75 @@
-// ignore_for_file: non_constant_identifier_names
+class CourseModel {
+  String courseCode;
+  String courseName;
+  String courseDescription;
+  int reviewPostsAmount;
+  int userId;
+  int id;
 
-class CourseModel{
-  final String course_code;
-  final String course_name;
-  final String course_description;
-  int review_post_amount=0;
-  int user_id=0;
+  CourseModel({
+    required this.courseCode,
+    required this.courseName,
+    required this.courseDescription,
+    this.reviewPostsAmount = 0,
+    this.userId = 0,
+    this.id = 0,
+  });
 
-  CourseModel(this.course_code, this.course_name, this.course_description);
+  factory CourseModel.fromJson(Map<String, dynamic> json) {
+    return CourseModel(
+      courseCode: json['course_code'],
+      courseName: json['course_name'],
+      courseDescription: json['course_description'],
+      reviewPostsAmount: json['review_posts_amount'],
+      userId: json['user_id'],
+      id: json['id'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'course_code': courseCode,
+      'course_name': courseName,
+      'course_description': courseDescription,
+      'review_post_amount': reviewPostsAmount,
+      'user_id': userId,
+      'id': id,
+    };
+  }
+}
+
+class CourseModelList {
+  List<CourseModel> courses;
+  int page;
+  int pageCount;
+  int sizePerPage;
+
+  CourseModelList({
+    required this.courses,
+    required this.page,
+    required this.pageCount,
+    required this.sizePerPage,
+  });
+
+  factory CourseModelList.fromJson(Map<String, dynamic> json) {
+    List<CourseModel> courses = [];
+    for (var course in json['courses']) {
+      courses.add(CourseModel.fromJson(course));
+    }
+    return CourseModelList(
+      courses: courses,
+      page: json['page'],
+      pageCount: json['page_count'],
+      sizePerPage: json['size_per_page'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'courses': courses.map((course) => course.toJson()).toList(),
+      'page': page,
+      'page_count': pageCount,
+      'size_per_page': sizePerPage,
+    };
+  }
 }
