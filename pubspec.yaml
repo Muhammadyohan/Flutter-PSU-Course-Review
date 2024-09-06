@@ -19,4 +19,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/psu-course-review.jpeg
+    - assets/psu-course-review-appbar.jpg
 
