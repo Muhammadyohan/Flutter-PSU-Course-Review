@@ -1,12 +1,14 @@
-class CommentModel {
-  String commentText;
-  String commentAuthor;
-  int likesAmount;
-  int reviewPostId;
-  int userId;
-  int id;
+import 'package:equatable/equatable.dart';
 
-  CommentModel({
+class CommentModel extends Equatable {
+  final String commentText;
+  final String commentAuthor;
+  final int likesAmount;
+  final int reviewPostId;
+  final int userId;
+  final int id;
+
+  const CommentModel({
     required this.commentText,
     required this.commentAuthor,
     this.likesAmount = 0,
@@ -36,15 +38,19 @@ class CommentModel {
       'id': id,
     };
   }
+
+  @override
+  List<Object?> get props =>
+      [commentAuthor, likesAmount, reviewPostId, userId, id];
 }
 
-class CommentModelList {
-  List<CommentModel> comments;
-  int page;
-  int pageCount;
-  int sizePerPage;
+class CommentModelList extends Equatable {
+  final List<CommentModel> comments;
+  final int page;
+  final int pageCount;
+  final int sizePerPage;
 
-  CommentModelList({
+  const CommentModelList({
     required this.comments,
     required this.page,
     required this.pageCount,
@@ -72,4 +78,7 @@ class CommentModelList {
       'size_per_page': sizePerPage,
     };
   }
+
+  @override
+  List<Object?> get props => [comments, page, pageCount, sizePerPage];
 }

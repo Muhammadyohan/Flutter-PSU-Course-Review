@@ -1,14 +1,17 @@
-class ReviewPostModel {
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class ReviewPostModel extends Equatable {
   String title;
   String text;
-  int likesAmount;
-  String authorName;
-  int commentsAmount;
-  String courseCode;
-  String courseName;
-  int courseId;
-  int userId;
-  int id;
+  final int likesAmount;
+  final String authorName;
+  final int commentsAmount;
+  final String courseCode;
+  final String courseName;
+  final int courseId;
+  final int userId;
+  final int id;
 
   ReviewPostModel({
     required this.title,
@@ -52,15 +55,28 @@ class ReviewPostModel {
       'id': id,
     };
   }
+
+  @override
+  List<Object?> get props => [
+        title,
+        likesAmount,
+        authorName,
+        commentsAmount,
+        courseCode,
+        courseName,
+        courseId,
+        userId,
+        id
+      ];
 }
 
-class ReviewPostModelList {
-  List<ReviewPostModel> reviewPosts;
-  int page;
-  int pageCount;
-  int sizePerPage;
+class ReviewPostModelList extends Equatable {
+  final List<ReviewPostModel> reviewPosts;
+  final int page;
+  final int pageCount;
+  final int sizePerPage;
 
-  ReviewPostModelList({
+  const ReviewPostModelList({
     required this.reviewPosts,
     required this.page,
     required this.pageCount,
@@ -89,4 +105,7 @@ class ReviewPostModelList {
       'size_per_page': sizePerPage,
     };
   }
+
+  @override
+  List<Object?> get props => [reviewPosts, page, pageCount, sizePerPage];
 }

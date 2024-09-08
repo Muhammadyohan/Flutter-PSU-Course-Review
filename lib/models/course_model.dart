@@ -1,12 +1,14 @@
-class CourseModel {
-  String courseCode;
-  String courseName;
-  String courseDescription;
-  int reviewPostsAmount;
-  int userId;
-  int id;
+import 'package:equatable/equatable.dart';
 
-  CourseModel({
+class CourseModel extends Equatable {
+  final String courseCode;
+  final String courseName;
+  final String courseDescription;
+  final int reviewPostsAmount;
+  final int userId;
+  final int id;
+
+  const CourseModel({
     required this.courseCode,
     required this.courseName,
     required this.courseDescription,
@@ -36,15 +38,19 @@ class CourseModel {
       'id': id,
     };
   }
+
+  @override
+  List<Object?> get props =>
+      [courseCode, courseName, reviewPostsAmount, userId, id];
 }
 
-class CourseModelList {
-  List<CourseModel> courses;
-  int page;
-  int pageCount;
-  int sizePerPage;
+class CourseModelList extends Equatable {
+  final List<CourseModel> courses;
+  final int page;
+  final int pageCount;
+  final int sizePerPage;
 
-  CourseModelList({
+  const CourseModelList({
     required this.courses,
     required this.page,
     required this.pageCount,
@@ -72,4 +78,7 @@ class CourseModelList {
       'size_per_page': sizePerPage,
     };
   }
+
+  @override
+  List<Object?> get props => [courses, page, pageCount, sizePerPage];
 }
