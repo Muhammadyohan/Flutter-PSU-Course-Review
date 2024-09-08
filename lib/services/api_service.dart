@@ -56,24 +56,29 @@ class ApiService {
     }
   }
 
-  Future<bool> login(
+  Future<String> login(
       {required String username, required String password}) async {
     try {
-      final response = await post(
-        '/token',
-        data: {'username': username, 'password': password},
-      );
+      final response = await post('/token',
+          data: {'username': username, 'password': password});
 
-      if (response.statusCode != 200) {
-        return false;
+      if (response.statusCode == 200) {
+        final token = response.data['access_token'];
+        await Store.setToken(token);
+        return "Logged in successfully";
+      } else if (response.statusCode == 401) {
+        // detail: Incorrect username or password.
+        return response.data['detail'];
+      } else {
+        return "Something went wrong";
       }
-
-      final token = response.data['access_token'];
-      await Store.setToken(token);
-      return true;
     } catch (e) {
       debugPrint(e.toString());
-      return false;
+      return e.toString();
     }
+  }
+
+  Future<void> logout() async {
+    await Store.clearToken();
   }
 }
