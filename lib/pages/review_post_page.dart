@@ -65,7 +65,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${post.course_code} - ${post.course_name}\nBy ${post.author_name}',
+                            '${post.courseCode} - ${post.courseName}\nBy ${post.authorName}',
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -94,11 +94,11 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Likes: ${post.like_amount}',
+                                'Likes: ${post.likesAmount}',
                                 style: const TextStyle(fontSize: 14),
                               ),
                               Text(
-                                'Comments: ${post.comment_amount}',
+                                'Comments: ${post.commentsAmount}',
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],

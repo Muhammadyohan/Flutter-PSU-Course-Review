@@ -42,9 +42,9 @@ class _ReviewPostSearchState extends State<ReviewPostSearch> {
       } else {
         _filteredPosts = _posts.where((post) {
           final courseCodeMatches =
-              post.course_code.toLowerCase().contains(query.toLowerCase());
+              post.courseCode.toLowerCase().contains(query.toLowerCase());
           final courseNameMatches =
-              post.course_name.toLowerCase().contains(query.toLowerCase());
+              post.courseName.toLowerCase().contains(query.toLowerCase());
           return courseCodeMatches || courseNameMatches;
         }).toList();
       }
@@ -109,7 +109,7 @@ class _ReviewPostSearchState extends State<ReviewPostSearch> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${post.course_code} - ${post.course_name}',
+                                  '${post.courseCode} - ${post.courseName}',
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,

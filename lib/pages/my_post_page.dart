@@ -76,7 +76,7 @@ class MyPostPage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      '${post.course_code} ${post.course_name}',
+                                      '${post.courseCode} ${post.courseName}',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -130,13 +130,13 @@ class MyPostPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 8.0),
                               Text(
-                                'By ${post.author_name}',
+                                'By ${post.authorName}',
                                 style: const TextStyle(
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
-                                'Likes: ${post.like_amount}, Comments: ${post.comment_amount}',
+                                'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',
                                 style: const TextStyle(fontSize: 14),
                               ),
                             ],

@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                                       children: [
                                         // Course Info
                                         Text(
-                                          '${post.course_code} ${post.course_name}',
+                                          '${post.courseCode} ${post.courseName}',
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -115,12 +115,12 @@ class HomePage extends StatelessWidget {
                                         const SizedBox(height: 8.0),
                                         // Author and Stats
                                         Text(
-                                          'By ${post.author_name}',
+                                          'By ${post.authorName}',
                                           style: const TextStyle(fontSize: 12),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         Text(
-                                          'Likes: ${post.like_amount}, Comments: ${post.comment_amount}',
+                                          'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',
                                           style: const TextStyle(fontSize: 12),
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -184,7 +184,7 @@ class HomePage extends StatelessWidget {
                                       children: [
                                         // Course Info
                                         Text(
-                                          '${post.course_code} ${post.course_name}',
+                                          '${post.courseCode} ${post.courseName}',
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -216,12 +216,12 @@ class HomePage extends StatelessWidget {
                                         const SizedBox(height: 8.0),
                                         // Author and Stats
                                         Text(
-                                          'By ${post.author_name}',
+                                          'By ${post.authorName}',
                                           style: const TextStyle(fontSize: 12),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         Text(
-                                          'Likes: ${post.like_amount}, Comments: ${post.comment_amount}',
+                                          'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',
                                           style: const TextStyle(fontSize: 12),
                                           overflow: TextOverflow.ellipsis,
                                         ),
