@@ -8,7 +8,7 @@ class DioInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     final token = await Store.getToken();
-    if (token != null) {
+    if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
