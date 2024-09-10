@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/welcome_page.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,9 +10,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter App',
-      home: WelcomePage(), // Set the WelcomePage as the initial page
+      home: HomePage(), // Set the WelcomePage as the initial page
     );
   }
 }
