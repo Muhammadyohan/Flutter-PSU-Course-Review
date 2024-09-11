@@ -35,7 +35,8 @@ class WelcomePage extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1A237E),
+                      backgroundColor: const Color(0xFF3E4B92),
+                      foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -55,7 +56,7 @@ class WelcomePage extends StatelessWidget {
                               builder: (context) => SignupPage()));
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xFF1A237E)),
+                      side: const BorderSide(color: Color(0xFF3E4B92)),
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

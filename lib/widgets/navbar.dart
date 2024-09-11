@@ -20,6 +20,10 @@ class Navbar extends StatelessWidget {
       ],
       currentIndex: selectedIndex,
       onTap: onItemTapped,
+      backgroundColor: Color(0xFF3E4B92),
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.6),
+      type: BottomNavigationBarType.fixed,
     );
   }
 }
