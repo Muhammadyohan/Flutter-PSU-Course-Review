@@ -25,7 +25,7 @@ class ReviewPostMockRepo extends ReviewPostRepository {
   ];
   @override
   Future<List<ReviewPostModel>> fetchTasks() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 500));
     return _tasks;
   }
 }
