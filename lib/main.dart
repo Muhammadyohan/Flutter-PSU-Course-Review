@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/pages/review_post_search.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter App',
-      home: ReviewPostSearch(), // Set the WelcomePage as the initial page
+      home: WelcomePage(), // Set the WelcomePage as the initial page
     );
   }
 }

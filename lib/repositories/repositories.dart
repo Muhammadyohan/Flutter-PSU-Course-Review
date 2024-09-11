@@ -1,0 +1,12 @@
+export './comment/comment_repository.dart';
+export './comment/comment_mock_repo.dart';
+export './comment/comment_repo_from_db.dart';
+export './course/course_repository.dart';
+export './course/course_mock_repo.dart';
+export './course/course_repo_from_db.dart';
+export './review_post/review_post_repository.dart';
+export './review_post/review_post_mock_repo.dart';
+export './review_post/review_post_repo_from_db.dart';
+export './user/user_repository.dart';
+export './user/user_mock_repo.dart';
+export './user/user_repo_from_db.dart';

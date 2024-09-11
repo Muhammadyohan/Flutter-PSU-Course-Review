@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/pages/home_page.dart';
-import '../widgets/custom_text_field.dart';
-//import 'main_page.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
+import '../widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -15,7 +14,7 @@ class LoginPage extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/psu-course-review.jpeg',
+                    'assets/psu-course-review-appbar.jpg',
                     height: 40,
                   ),
                   SizedBox(width: 10),
@@ -25,7 +24,7 @@ class LoginPage extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFF1A237E),
+                  color: Color.fromARGB(255, 55, 70, 152),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -63,12 +62,12 @@ class LoginPage extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => MainPage()));
                           },
                           child: Text(
                             'LOGIN',
                             style: TextStyle(
-                              color: Color(0xFF1A237E),
+                              color: Color(0xFF3E4B92),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -77,6 +76,24 @@ class LoginPage extends StatelessWidget {
                             minimumSize: Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupPage()));
+                          },
+                          child: Text(
+                            'Don\'t have an account? Sign up',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
