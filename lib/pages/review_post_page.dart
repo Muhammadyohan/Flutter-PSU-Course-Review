@@ -12,30 +12,45 @@ class ReviewPostPage extends StatefulWidget {
 }
 
 class _ReviewPostPageState extends State<ReviewPostPage> {
-  late Future<List<ReviewPostModel>> _postsFuture;
-  final ReviewPostMockRepo _repository = ReviewPostMockRepo();
+  late Future<List<CommentModel>> _commentsFuture;
+  final CommentMockRepo _commentRepository = CommentMockRepo();
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _postsFuture = _repository.fetchTasks();
+    _commentsFuture = _commentRepository.fetchTasks();
+  }
+
+  void _addComment() {
+    if (_commentController.text.isNotEmpty) {
+      final newComment = CommentModel(
+        commentText: _commentController.text,
+        commentAuthor: 'New User',
+      );
+      _commentRepository.addComment(newComment);
+
+      setState(() {
+        _commentsFuture = _commentRepository.fetchTasks();
+      });
+      _commentController.clear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<ReviewPostModel>>(
-        future: _postsFuture,
+      body: FutureBuilder<List<CommentModel>>(
+        future: _commentsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No posts available'));
           }
 
-          final post = widget.post; // Use the post passed to this widget
+          final post = widget.post;
+          final comments = snapshot.data!;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +66,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                 child: SizedBox(
                   width: 360,
                   child: Card(
-                    elevation: 6, // Increased elevation for shadow
+                    elevation: 6,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -60,7 +75,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                         vertical: 12, horizontal: 16),
                     child: Padding(
                       padding: const EdgeInsets.all(
-                          20.0), // More padding for better spacing
+                          20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -119,11 +134,20 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-                child: Text(
-                  'Pea: Yeah I think so',
-                  style: TextStyle(fontSize: 14),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  itemCount: comments.length,
+                  itemBuilder: (context, index) {
+                    final comment = comments[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        '${comment.commentAuthor}: ${comment.commentText}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    );
+                  },
                 ),
               ),
               Center(
@@ -133,28 +157,23 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                     children: [
                       Expanded(
                         child: TextField(
+                          controller: _commentController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter comment here',
                           ),
-                          onChanged: (text) {
-                            setState(() {});
-                          },
                         ),
                       ),
-                      const SizedBox(
-                          width:
-                              8), // Add some space between the TextField and the Button
+                      const SizedBox(width: 8),
                       ElevatedButton(
-                        onPressed: () {
-                          // Add your submit functionality here
-                        },
+                        onPressed: _addComment,
                         child: const Text('Send'),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
+              const SizedBox(height: 12.0),
             ],
           );
         },

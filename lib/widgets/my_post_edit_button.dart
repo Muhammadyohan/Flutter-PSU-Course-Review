@@ -47,7 +47,7 @@ class _MyPostEditButtonState extends State<MyPostEditButton> {
             TextField(
               controller: _textController,
               decoration: const InputDecoration(labelText: 'Content'),
-              maxLines: 5,
+              //maxLines: 5,
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
