@@ -2,11 +2,11 @@ import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
 import 'package:flutter_psu_course_review/services/api_service.dart';
 
-final ApiService apiService = ApiService();
-const String baseUri = '/users';
-
 class UserRepoFromDb extends UserRepository {
   late UserModel user;
+
+  final ApiService apiService = ApiService();
+  final String baseUri = '/users';
 
   @override
   Future<String> createUser(
