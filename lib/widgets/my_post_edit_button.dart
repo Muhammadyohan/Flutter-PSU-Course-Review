@@ -56,7 +56,7 @@ class _MyPostEditButtonState extends State<MyPostEditButton> {
                   widget.post.title = _titleController.text;
                   widget.post.text = _textController.text;
                 });
-                Navigator.pop(context); // Return to the previous page
+                Navigator.pop(context);
               },
               child: const Text('Save'),
             ),

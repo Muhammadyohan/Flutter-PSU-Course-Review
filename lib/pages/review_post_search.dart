@@ -30,7 +30,7 @@ class _ReviewPostSearchState extends State<ReviewPostSearch> {
         _filteredPosts = [];
       });
     } catch (e) {
-      // Handle errors if necessary
+      // 
     }
   }
 
@@ -88,7 +88,7 @@ class _ReviewPostSearchState extends State<ReviewPostSearch> {
                         );
                       },
                       child: Card(
-                        elevation: 6, // Increased elevation for shadow
+                        elevation: 6,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

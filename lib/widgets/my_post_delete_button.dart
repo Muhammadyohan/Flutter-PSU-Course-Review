@@ -19,13 +19,13 @@ class MyPostDeleteButton extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context); // Close the dialog
+            Navigator.pop(context);
           },
           child: const Text('Cancel'),
         ),
         TextButton(
           onPressed: () {
-            onDelete(); // Execute the delete function
+            onDelete();
           },
           child: const Text(
             'Delete',
