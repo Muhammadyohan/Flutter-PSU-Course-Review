@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/pages/my_profile_page.dart';
 import '../widgets/widgets.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 
@@ -12,9 +11,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
+    Center(child: Text('Event')),
     Center(child: HomePage()),
-    Center(child: ReviewPostSearch()),
-    Center(child: MyPostPage()),
     Center(child: MyProfilePage()),
   ];
 
@@ -28,11 +26,31 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'assets/psu-course-review-appbar.jpg',
-          width: 130,
-          height: 130,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Image.asset(
+              'assets/psu-course-review-appbar.jpg',
+              width: 130,
+              height: 130,
+            ),
+            StatefulBuilder(builder: (context, setState) {
+              return _selectedIndex == 1
+                  ? TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyPostPage()),
+                        );
+                      },
+                      child: const Text("My posts"))
+                  : const SizedBox();
+            }),
+          ],
         ),
+        
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: Navbar(
