@@ -12,150 +12,176 @@ class ReviewPostPage extends StatefulWidget {
 }
 
 class _ReviewPostPageState extends State<ReviewPostPage> {
-  late Future<List<ReviewPostModel>> _postsFuture;
-  final ReviewPostMockRepo _repository = ReviewPostMockRepo();
+  final CommentMockRepo _commentRepository = CommentMockRepo();
+  final TextEditingController _commentController = TextEditingController();
+  late Future<List<CommentModel>> _commentsFuture;
+  late int _likeCount;
 
   @override
   void initState() {
     super.initState();
-    _postsFuture = _repository.fetchTasks();
+    _commentsFuture = _commentRepository.fetchTasks();
+    _likeCount = widget.post.likesAmount;
+  }
+
+  void _incrementLike() {
+    setState(() {
+      _likeCount++;
+    });
+  }
+
+  void _addComment() {
+    if (_commentController.text.isNotEmpty) {
+      final newComment = CommentModel(
+        commentText: _commentController.text,
+        commentAuthor: 'New User',
+      );
+      _commentRepository.addComment(newComment);
+
+      setState(() {
+        _commentsFuture = _commentRepository.fetchTasks();
+      });
+      _commentController.clear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<ReviewPostModel>>(
-        future: _postsFuture,
+      body: FutureBuilder<List<CommentModel>>(
+        future: _commentsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No posts available'));
           }
 
-          final post = widget.post; // Use the post passed to this widget
+          final comments = snapshot.data!;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 12.0),
-              IconButton(
-                icon: const Icon(Icons.arrow_back_sharp),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              Center(
-                child: SizedBox(
-                  width: 360,
-                  child: Card(
-                    elevation: 6, // Increased elevation for shadow
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_sharp),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Text(
+                    '${widget.post.courseCode} ${widget.post.courseName}',
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
-                    color: const Color.fromARGB(255, 245, 245, 245),
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 16),
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                          20.0), // More padding for better spacing
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${post.courseCode} - ${post.courseName}\nBy ${post.authorName}',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            post.title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            post.text,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Likes: ${post.likesAmount}',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              Text(
-                                'Comments: ${post.commentsAmount}',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ],
+                  ),
+                ),
+                const SizedBox(height: 12.0),
+                Center(
+                  child: SizedBox(
+                    width: 400,
+                    child: Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text(
-                  'Comments',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-                child: Text(
-                  'Pea: Yeah I think so',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 350,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter comment here',
-                          ),
-                          onChanged: (text) {
-                            setState(() {});
-                          },
+                      color: const Color.fromARGB(255, 240, 240, 240),
+                      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.post.title,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'By ${widget.post.authorName}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              widget.post.text,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black54,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: _incrementLike,
+                                  icon: const Icon(Icons.thumb_up),
+                                  label: Text('$_likeCount'),
+                                ),
+                              ],
+                            ),
+                            const Divider(thickness: 1),
+                            const Text(
+                              'Comments',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: comments.length,
+                              itemBuilder: (context, index) {
+                                final comment = comments[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                                  child: Text(
+                                    '${comment.commentAuthor}: ${comment.commentText}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                );
+                              },
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _commentController,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Enter comment here',
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                ElevatedButton(
+                                  onPressed: _addComment,
+                                  child: const Text('Send'),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                          width:
-                              8), // Add some space between the TextField and the Button
-                      ElevatedButton(
-                        onPressed: () {
-                          // Add your submit functionality here
-                        },
-                        child: const Text('Send'),
-                      )
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 16.0),
+              ],
+            ),
           );
         },
       ),

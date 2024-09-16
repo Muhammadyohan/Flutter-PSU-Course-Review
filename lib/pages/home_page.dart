@@ -3,8 +3,16 @@ import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final Map<int, int> _likes = {};
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,6 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Popular Post Section
               Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -42,14 +49,16 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     SizedBox(
-                      height: 250, // Set height to manage scrollable area
+                      height: 250,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: posts.length,
                         itemBuilder: (context, index) {
                           final post = posts[index];
+                          _likes[index] = _likes[index] ?? post.likesAmount;
+
                           return Container(
-                            width: 200, // Adjust width to fit content
+                            width: 200,
                             margin: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: InkWell(
                               onTap: () {
@@ -72,7 +81,6 @@ class HomePage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Course Info
                                       Text(
                                         '${post.courseCode} ${post.courseName}',
                                         style: const TextStyle(
@@ -82,7 +90,6 @@ class HomePage extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Post Title
                                       Text(
                                         post.title,
                                         style: const TextStyle(
@@ -92,27 +99,34 @@ class HomePage extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Post Text
                                       Expanded(
                                         child: Text(
                                           post.text,
                                           style: const TextStyle(fontSize: 14),
                                           overflow: TextOverflow.ellipsis,
-                                          maxLines:
-                                              3, // Limit the number of lines
+                                          maxLines: 3,
                                         ),
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Author and Stats
                                       Text(
                                         'By ${post.authorName}',
                                         style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      Text(
-                                        'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',
-                                        style: const TextStyle(fontSize: 12),
-                                        overflow: TextOverflow.ellipsis,
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(Icons.thumb_up),
+                                            onPressed: () {
+                                              setState(() {
+                                                _likes[index] = _likes[index]! + 1;
+                                              });
+                                            },
+                                          ),
+                                          Text('${_likes[index]}'),
+                                          const SizedBox(width: 10),
+                                          Text('Comments: ${post.commentsAmount}'),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -126,7 +140,6 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              // Trending Courses Section (if needed)
               Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -141,14 +154,16 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     SizedBox(
-                      height: 250, // Set height to manage scrollable area
+                      height: 250,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: posts.length,
                         itemBuilder: (context, index) {
                           final post = posts[index];
+                          _likes[index] = _likes[index] ?? post.likesAmount;
+
                           return Container(
-                            width: 200, // Adjust width to fit content
+                            width: 200,
                             margin: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: InkWell(
                               onTap: () {
@@ -171,7 +186,6 @@ class HomePage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Course Info
                                       Text(
                                         '${post.courseCode} ${post.courseName}',
                                         style: const TextStyle(
@@ -181,7 +195,6 @@ class HomePage extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Post Title
                                       Text(
                                         post.title,
                                         style: const TextStyle(
@@ -191,27 +204,34 @@ class HomePage extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Post Text
                                       Expanded(
                                         child: Text(
                                           post.text,
                                           style: const TextStyle(fontSize: 14),
                                           overflow: TextOverflow.ellipsis,
-                                          maxLines:
-                                              3, // Limit the number of lines
+                                          maxLines: 3,
                                         ),
                                       ),
                                       const SizedBox(height: 8.0),
-                                      // Author and Stats
                                       Text(
                                         'By ${post.authorName}',
                                         style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      Text(
-                                        'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',
-                                        style: const TextStyle(fontSize: 12),
-                                        overflow: TextOverflow.ellipsis,
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(Icons.thumb_up),
+                                            onPressed: () {
+                                              setState(() {
+                                                _likes[index] = _likes[index]! + 1;
+                                              });
+                                            },
+                                          ),
+                                          Text('${_likes[index]}'),
+                                          const SizedBox(width: 10),
+                                          Text('Comments: ${post.commentsAmount}'),
+                                        ],
                                       ),
                                     ],
                                   ),
