@@ -15,11 +15,14 @@ class Navbar extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
       currentIndex: selectedIndex,
       onTap: onItemTapped,
+      backgroundColor: Color(0xFF3E4B92),
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.6),
+      type: BottomNavigationBarType.fixed,
     );
   }
 }

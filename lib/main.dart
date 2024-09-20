@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter App',
-      home: HomePage(), // Set the WelcomePage as the initial page
+      home: WelcomePage(), // Set the WelcomePage as the initial page
     );
   }
 }
