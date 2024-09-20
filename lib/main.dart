@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
