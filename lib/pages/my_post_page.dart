@@ -60,7 +60,7 @@ class _MyPostPageState extends State<MyPostPage> {
                   itemBuilder: (context, index) {
                     final post = posts[index];
                     return Card(
-                      color: Colors.white,
+                      color: const Color(0xFF3E4B92),
                       margin: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
                       shape: RoundedRectangleBorder(
@@ -72,6 +72,7 @@ class _MyPostPageState extends State<MyPostPage> {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         ),
                         subtitle: Column(
@@ -83,21 +84,22 @@ class _MyPostPageState extends State<MyPostPage> {
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.white
                               ),
                             ),
                             const SizedBox(height: 8.0),
-                            Text(post.text),
+                            Text(post.text,style: const TextStyle(color: Colors.white),),
                             const SizedBox(height: 8.0),
-                            Text('By ${post.authorName}'),
+                            Text('By ${post.authorName}',style: const TextStyle(color: Colors.white),),
                             Text(
-                                'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}'),
+                                'Likes: ${post.likesAmount}, Comments: ${post.commentsAmount}',style: const TextStyle(color: Colors.white),),
                           ],
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.edit),
+                              icon: const Icon(Icons.edit,color: Colors.white,),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -109,7 +111,7 @@ class _MyPostPageState extends State<MyPostPage> {
                               },
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete),
+                              icon: const Icon(Icons.delete,color: Colors.white,),
                               onPressed: () {
                                 showDialog(
                                   context: context,
@@ -155,7 +157,7 @@ class _MyPostPageState extends State<MyPostPage> {
                           ),
                         );
                       },
-                      child: const Icon(Icons.add),
+                      child: const Icon(Icons.add,),
                     ),
                   ],
                 ),
