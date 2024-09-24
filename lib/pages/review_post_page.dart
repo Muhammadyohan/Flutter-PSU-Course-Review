@@ -76,7 +76,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -89,8 +89,9 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      color: const Color.fromARGB(255, 240, 240, 240),
-                      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      color: const Color(0xFF3E4B92),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 16),
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
@@ -101,7 +102,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black87,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -109,7 +110,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               'By ${widget.post.authorName}',
                               style: const TextStyle(
                                 fontSize: 18,
-                                color: Color.fromARGB(255, 0, 0, 0),
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -117,7 +118,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               widget.post.text,
                               style: const TextStyle(
                                 fontSize: 18,
-                                color: Colors.black54,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -127,7 +128,9 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                                 ElevatedButton.icon(
                                   onPressed: _incrementLike,
                                   icon: const Icon(Icons.thumb_up),
-                                  label: Text('$_likeCount'),
+                                  label: Text(
+                                    '$_likeCount',
+                                  ),
                                 ),
                               ],
                             ),
@@ -137,7 +140,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.blueGrey,
+                                color: Colors.white,
                               ),
                             ),
                             ListView.builder(
@@ -147,10 +150,12 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               itemBuilder: (context, index) {
                                 final comment = comments[index];
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12.0),
                                   child: Text(
                                     '${comment.commentAuthor}: ${comment.commentText}',
-                                    style: const TextStyle(fontSize: 16),
+                                    style: const TextStyle(
+                                        fontSize: 16, color: Colors.white),
                                   ),
                                 );
                               },
@@ -163,6 +168,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                                     decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       hintText: 'Enter comment here',
+                                      hintStyle: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
