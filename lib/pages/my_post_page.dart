@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
-import 'package:flutter_psu_course_review/widgets/my_post_add_button.dart';
 import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class MyPostPage extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_event.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_state.dart';
 import 'package:flutter_psu_course_review/repositories/user/user_repository.dart';
@@ -17,7 +18,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   _onLoadedUser(LoadUserEvent event, Emitter<UserState> emit) async {
     if (state is LoadingUserState) {
+      debugPrint('LoadingUserState');
       final user = await userRepository.getMeUser();
+      debugPrint('user: $user');
       emit(ReadyUserState(user: user));
     }
   }
@@ -45,6 +48,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   _onLoginUser(LoginUserEvent event, Emitter<UserState> emit) async {
     final response = await userRepository.loginUser(
         username: event.username, password: event.password);
+    debugPrint('response: $response');
     emit(LoadingUserState(responseText: response));
   }
 
