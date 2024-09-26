@@ -8,11 +8,11 @@ sealed class CourseState {
       {required this.courses, required this.course, this.responseText = ''});
 }
 
-const List<CourseModel> empty = [];
+const List<CourseModel> emptyCourseList = [];
 
 class LoadingCourseState extends CourseState {
   LoadingCourseState({super.responseText})
-      : super(courses: empty, course: CourseModel.empty());
+      : super(courses: emptyCourseList, course: CourseModel.empty());
 }
 
 class ReadyCourseState extends CourseState {

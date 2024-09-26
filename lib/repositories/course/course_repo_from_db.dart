@@ -40,8 +40,6 @@ class CourseRepoFromDB extends CourseRepository {
     if (response.statusCode == 200) {
       courseModel = CourseModel.fromJson(response.data);
       return courseModel;
-    } else if (response.statusCode == 401) {
-      return CourseModel.empty();
     } else {
       throw Exception('Failed to getcourse');
     }
@@ -80,6 +78,8 @@ class CourseRepoFromDB extends CourseRepository {
 
     if (response.statusCode == 200) {
       return 'Course updated successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to update course');
     }
@@ -90,6 +90,8 @@ class CourseRepoFromDB extends CourseRepository {
     final response = await apiService.delete('$baseUri/$courseId');
     if (response.statusCode == 200) {
       return response.data['message'];
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to delete course');
     }

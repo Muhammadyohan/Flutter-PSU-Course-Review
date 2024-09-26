@@ -31,7 +31,7 @@ class ReviewPostMockRepo extends ReviewPostRepository {
   }
 
   @override
-  Future<void> createReviewPost({
+  Future<String> createReviewPost({
     required String title,
     required String text,
     required int courseId,
@@ -60,7 +60,7 @@ class ReviewPostMockRepo extends ReviewPostRepository {
   }
 
   @override
-  Future<void> updateReviewPost({
+  Future<String> updateReviewPost({
     required String title,
     required String text,
     required int likesAmount,
@@ -70,7 +70,7 @@ class ReviewPostMockRepo extends ReviewPostRepository {
   }
 
   @override
-  Future<void> deleteReviewPost({required int reviewPostId}) {
+  Future<String> deleteReviewPost({required int reviewPostId}) {
     throw UnimplementedError();
   }
 }
