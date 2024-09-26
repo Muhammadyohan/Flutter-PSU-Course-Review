@@ -39,9 +39,26 @@ class CourseModel extends Equatable {
     };
   }
 
+  factory CourseModel.empty() {
+    return const CourseModel(
+      courseCode: '',
+      courseName: '',
+      courseDescription: '',
+      reviewPostsAmount: 0,
+      userId: 0,
+      id: 0,
+    );
+  }
+
   @override
-  List<Object?> get props =>
-      [courseCode, courseName, reviewPostsAmount, userId, id];
+  List<Object?> get props => [
+        courseCode,
+        courseName,
+        courseDescription,
+        reviewPostsAmount,
+        userId,
+        id
+      ];
 }
 
 class CourseModelList extends Equatable {
