@@ -50,6 +50,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         username: event.username, password: event.password);
     debugPrint('response: $response');
     emit(LoadingUserState(responseText: response));
+    add(LoadUserEvent());
   }
 
   _onLogoutUser(LogoutUserEvent event, Emitter<UserState> emit) async {

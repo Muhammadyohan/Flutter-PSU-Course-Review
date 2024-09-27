@@ -3,7 +3,7 @@ import 'package:flutter_psu_course_review/models/models.dart';
 abstract class CommentRepository {
   Future<List<CommentModel>> fetchTasks();
 
-  Future<void> createComment({
+  Future<String> createComment({
     required String text,
     required int reviewPostId,
   });
@@ -19,11 +19,11 @@ abstract class CommentRepository {
 
   Future<CommentModel> getComment({required int commentId});
 
-  Future<void> updateComment({
+  Future<String> updateComment({
     required String text,
     required int likesAmount,
     required int commentId,
   });
 
-  Future<void> deleteComment({required int commentId});
+  Future<String> deleteComment({required int commentId});
 }
