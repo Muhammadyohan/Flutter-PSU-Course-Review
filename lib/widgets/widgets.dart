@@ -8,3 +8,4 @@ export "./navbar.dart";
 export "./profile_edit_button.dart";
 export "./show_dialog_profile.dart";
 export "./show_password_edit_dialog.dart";
+export "./signup_field.dart";

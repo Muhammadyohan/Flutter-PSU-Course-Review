@@ -3,23 +3,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_psu_course_review/blocs/blocs.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 
-class LoginField extends StatefulWidget {
-  const LoginField({
+class SignupField extends StatefulWidget {
+  const SignupField({
     super.key,
   });
 
   @override
-  State<LoginField> createState() => _LoginFieldState();
+  State<SignupField> createState() => _SignupFieldState();
 }
 
-class _LoginFieldState extends State<LoginField> {
+class _SignupFieldState extends State<SignupField> {
   bool _obscureText = true;
+
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     _usernameController.dispose();
+    _emailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -31,7 +38,7 @@ class _LoginFieldState extends State<LoginField> {
       children: [
         const SizedBox(height: 20),
         const Text(
-          'LOGIN',
+          'SIGN UP',
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
@@ -46,16 +53,40 @@ class _LoginFieldState extends State<LoginField> {
         ),
         const SizedBox(height: 20),
         _customTextField(
+          hintText: 'EMAIL',
+          prefixIcon: Icons.email,
+          controller: _emailController,
+        ),
+        const SizedBox(height: 20),
+        _customTextField(
+          hintText: 'FIRST NAME',
+          prefixIcon: Icons.person_outline,
+          controller: _firstNameController,
+        ),
+        const SizedBox(height: 20),
+        _customTextField(
+          hintText: 'LAST NAME',
+          prefixIcon: Icons.person_outline,
+          controller: _lastNameController,
+        ),
+        const SizedBox(height: 20),
+        _customTextField(
           hintText: 'PASSWORD',
           isPassword: true,
           prefixIcon: Icons.lock,
           controller: _passwordController,
         ),
+        const SizedBox(height: 20),
+        _customTextField(
+          hintText: 'CONFIRM PASSWORD',
+          isConfirmPassword: true,
+          prefixIcon: Icons.lock,
+        ),
         const SizedBox(height: 40),
         Center(
           child: ElevatedButton(
             onPressed: () {
-              _login();
+              _signup();
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => MainPage()));
             },
@@ -67,7 +98,7 @@ class _LoginFieldState extends State<LoginField> {
               ),
             ),
             child: const Text(
-              'LOGIN',
+              'SIGN UP',
               style: TextStyle(
                 color: Color(0xFF3E4B92),
                 fontWeight: FontWeight.bold,
@@ -79,11 +110,11 @@ class _LoginFieldState extends State<LoginField> {
         Center(
           child: TextButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupPage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
             },
             child: const Text(
-              'Don\'t have an account? Sign up',
+              'Already have an account? Login',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -98,16 +129,17 @@ class _LoginFieldState extends State<LoginField> {
   Widget _customTextField({
     String? hintText,
     bool isPassword = false,
+    bool isConfirmPassword = false,
     IconData? prefixIcon,
     TextEditingController? controller,
   }) {
     return TextField(
       controller: controller,
-      obscureText: isPassword ? _obscureText : false,
+      obscureText: isPassword || isConfirmPassword ? _obscureText : false,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(prefixIcon),
-        suffixIcon: isPassword
+        suffixIcon: isPassword || isConfirmPassword
             ? IconButton(
                 icon: Icon(
                   _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -129,14 +161,20 @@ class _LoginFieldState extends State<LoginField> {
     );
   }
 
-  void _login() {
+  void _signup() {
     String username = _usernameController.text;
+    String email = _emailController.text;
+    String firstName = _firstNameController.text;
+    String lastName = _lastNameController.text;
     String password = _passwordController.text;
-    context
-        .read<UserBloc>()
-        .add(LoginUserEvent(username: username, password: password));
-    debugPrint('Username: $username');
-    debugPrint('Password: $password');
+
+    context.read<UserBloc>().add(CreateUserEvent(
+        username: username,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        password: password));
+
     FocusScope.of(context).unfocus();
   }
 }
