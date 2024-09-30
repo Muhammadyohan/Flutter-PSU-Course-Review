@@ -23,9 +23,54 @@ class ReviewPostMockRepo extends ReviewPostRepository {
         courseCode: '240-003',
         courseName: 'Web developer'),
   ];
+  
   @override
   Future<List<ReviewPostModel>> fetchTasks() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return _tasks;
+  }
+
+  @override
+  Future<void> createReviewPost({
+    required String title,
+    required String text,
+    required int courseId,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ReviewPostModel>> getReviewPosts({
+    int page = 1,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
+    required int courseId,
+    int page = 1,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ReviewPostModel> getReviewPost({required int reviewPostId}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateReviewPost({
+    required String title,
+    required String text,
+    required int likesAmount,
+    required int reviewPostId,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteReviewPost({required int reviewPostId}) {
+    throw UnimplementedError();
   }
 }

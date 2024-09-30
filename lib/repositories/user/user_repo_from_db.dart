@@ -55,6 +55,8 @@ class UserRepoFromDb extends UserRepository {
     if (response.statusCode == 200) {
       user = UserModel.fromJson(response.data);
       return user;
+    } else if (response.statusCode == 401) {
+      return UserModel.empty();
     } else {
       throw Exception('Failed to get user');
     }
@@ -66,6 +68,8 @@ class UserRepoFromDb extends UserRepository {
     if (response.statusCode == 200) {
       user = UserModel.fromJson(response.data);
       return user;
+    } else if (response.statusCode == 401) {
+      return UserModel.empty();
     } else {
       throw Exception('Failed to get user');
     }

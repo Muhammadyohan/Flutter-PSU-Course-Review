@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_psu_course_review/pages/psu_event_hub.dart';
 import '../widgets/widgets.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 
@@ -11,7 +12,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Center(child: Text('Event')),
+    Center(child: PSUEventHub()),
     Center(child: HomePage()),
     Center(child: MyProfilePage()),
   ];

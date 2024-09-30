@@ -1,7 +1,7 @@
 import 'package:flutter_psu_course_review/models/models.dart';
 
 abstract class UserRepository {
-  Future<void> createUser({
+  Future<String> createUser({
     required String email,
     required String username,
     required String firstName,
@@ -9,7 +9,7 @@ abstract class UserRepository {
     required String password,
   });
 
-  Future<void> loginUser({
+  Future<String> loginUser({
     required String username,
     required String password,
   });
@@ -20,13 +20,13 @@ abstract class UserRepository {
 
   Future<UserModel> getOtherUser({required int userId});
 
-  Future<void> changePasswordUser({
+  Future<String> changePasswordUser({
     required int userId,
     required String currentPassword,
     required String newPassword,
   });
 
-  Future<void> updateUser({
+  Future<String> updateUser({
     required int userId,
     required String verifyPassword,
     required String email,
