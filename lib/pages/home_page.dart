@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
+import 'package:flutter_psu_course_review/widgets/all_popularpost_page.dart';
+import 'package:flutter_psu_course_review/widgets/all_trendingcourse_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -71,14 +73,29 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Popular Posts',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Text(
+                  'Popular Posts     ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllPopularpostPage(posts: _filteredPosts),
+                      ),
+                    );
+                  },
+                  child: const Text('See All'),
+                ),
+                
+              ],
             ),
           ),
           const SizedBox(height: 10),
@@ -97,21 +114,20 @@ class _HomePageState extends State<HomePage> {
                   height: 250,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _filteredPosts.length,
+                    itemCount: (_filteredPosts.length > 5) ? 5 : _filteredPosts.length,
                     itemBuilder: (context, index) {
                       final post = _filteredPosts[index];
                       _likes[index] = _likes[index] ?? post.likesAmount;
 
                       return Container(
-                        width: 200,
+                        width: 400,
                         margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ReviewPostPage(post: post),
+                                builder: (context) => ReviewPostPage(post: post),
                               ),
                             );
                           },
@@ -128,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     '${post.courseCode} ${post.courseName}',
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -138,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     post.title,
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -149,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Text(
                                       post.text,
                                       style: const TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         color: Colors.white,
                                       ),
                                       overflow: TextOverflow.ellipsis,
@@ -160,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     'By ${post.authorName}',
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 16,
                                       color: Colors.white,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -180,14 +196,12 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Text(
                                         '${_likes[index]}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                       const SizedBox(width: 10),
                                       Text(
                                         'Comments: ${post.commentsAmount}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -200,14 +214,31 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-                const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Trending Course',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+
+          
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                const Text(
+                  'Trending Courses     ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllTrendingcoursePage(posts: _filteredPosts),
+                      ),
+                    );
+                  },
+                  child: const Text('See All'),
+                ),
+                
+              ],
             ),
           ),
           const SizedBox(height: 10),
@@ -226,21 +257,20 @@ class _HomePageState extends State<HomePage> {
                   height: 250,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _filteredPosts.length,
+                    itemCount: (_filteredPosts.length > 5) ? 5 : _filteredPosts.length,
                     itemBuilder: (context, index) {
                       final post = _filteredPosts[index];
                       _likes[index] = _likes[index] ?? post.likesAmount;
 
                       return Container(
-                        width: 200,
+                        width: 400,
                         margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ReviewPostPage(post: post),
+                                builder: (context) => ReviewPostPage(post: post),
                               ),
                             );
                           },
@@ -257,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     '${post.courseCode} ${post.courseName}',
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -267,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     post.title,
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -278,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Text(
                                       post.text,
                                       style: const TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         color: Colors.white,
                                       ),
                                       overflow: TextOverflow.ellipsis,
@@ -289,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                                   Text(
                                     'By ${post.authorName}',
                                     style: const TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 16,
                                       color: Colors.white,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -309,14 +339,12 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Text(
                                         '${_likes[index]}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                       const SizedBox(width: 10),
                                       Text(
                                         'Comments: ${post.commentsAmount}',
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ],
                                   ),

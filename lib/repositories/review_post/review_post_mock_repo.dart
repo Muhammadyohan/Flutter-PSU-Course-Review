@@ -22,8 +22,26 @@ class ReviewPostMockRepo extends ReviewPostRepository {
         authorName: 'Maew',
         courseCode: '240-003',
         courseName: 'Web developer'),
+    ReviewPostModel(
+        title: '1',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-0004',
+        courseName: 'maew'),
+    ReviewPostModel(
+        title: '2',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-005',
+        courseName: 'Web wqweqe'),
+    ReviewPostModel(
+        title: '3',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-006',
+        courseName: 'maew developer'),
   ];
-  
+
   @override
   Future<List<ReviewPostModel>> fetchTasks() async {
     await Future.delayed(const Duration(milliseconds: 500));

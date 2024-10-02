@@ -26,4 +26,5 @@ flutter:
   assets:
     - assets/psu-course-review.jpeg
     - assets/psu-course-review-appbar.jpg
+    - assets/arrow.jpg
 
