@@ -30,6 +30,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return 'Review post created successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to create review post');
     }
@@ -103,6 +105,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return 'Review post updated successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to update review post');
     }
@@ -114,6 +118,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return response.data['message'];
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to delete review post');
     }

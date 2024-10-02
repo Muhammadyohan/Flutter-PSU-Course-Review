@@ -39,9 +39,20 @@ class CommentModel extends Equatable {
     };
   }
 
+  factory CommentModel.empty() {
+    return const CommentModel(
+      commentText: '',
+      commentAuthor: '',
+      likesAmount: 0,
+      reviewPostId: 0,
+      userId: 0,
+      id: 0,
+    );
+  }
+
   @override
   List<Object?> get props =>
-      [commentAuthor, likesAmount, reviewPostId, userId, id];
+      [commentText, commentAuthor, likesAmount, reviewPostId, userId, id];
 }
 
 class CommentModelList extends Equatable {

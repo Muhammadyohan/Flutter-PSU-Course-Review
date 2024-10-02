@@ -56,9 +56,25 @@ class ReviewPostModel extends Equatable {
     };
   }
 
+  factory ReviewPostModel.empty() {
+    return ReviewPostModel(
+      title: '',
+      text: '',
+      likesAmount: 0,
+      authorName: '',
+      commentsAmount: 0,
+      courseCode: '',
+      courseName: '',
+      courseId: 0,
+      userId: 0,
+      id: 0,
+    );
+  }
+
   @override
   List<Object?> get props => [
         title,
+        text,
         likesAmount,
         authorName,
         commentsAmount,

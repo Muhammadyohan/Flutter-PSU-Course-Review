@@ -18,10 +18,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   _onLoadedUser(LoadUserEvent event, Emitter<UserState> emit) async {
     if (state is LoadingUserState) {
-      debugPrint('LoadingUserState');
-      final user = await userRepository.getMeUser();
-      debugPrint('user: $user');
-      emit(ReadyUserState(user: user));
+      try {
+        debugPrint('LoadingUserState');
+        final user = await userRepository.getMeUser();
+        debugPrint('user: $user');
+        emit(ReadyUserState(user: user));
+      } catch (e) {
+        debugPrint('Error: $e');
+        emit(NeedLoginUserState(responseText: e.toString()));
+      }
     }
   }
 
@@ -33,23 +38,29 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onCreatedUser(CreateUserEvent event, Emitter<UserState> emit) async {
-    if (state is ReadyUserState) {
-      final response = await userRepository.createUser(
-        email: event.email,
-        username: event.username,
-        firstName: event.firstName,
-        lastName: event.lastName,
-        password: event.password,
-      );
-      emit(LoadingUserState(responseText: response));
-    }
+    debugPrint('Start create user');
+    final response = await userRepository.createUser(
+      email: event.email,
+      username: event.username,
+      firstName: event.firstName,
+      lastName: event.lastName,
+      password: event.password,
+    );
+    debugPrint('Finish create user');
+    emit(NeedLoginUserState(responseText: response));
+    add(LoginUserEvent(username: event.username, password: event.password));
   }
 
   _onLoginUser(LoginUserEvent event, Emitter<UserState> emit) async {
-    final response = await userRepository.loginUser(
-        username: event.username, password: event.password);
-    debugPrint('response: $response');
-    emit(LoadingUserState(responseText: response));
+    if (state is NeedLoginUserState) {
+      debugPrint('Start login user');
+      final response = await userRepository.loginUser(
+          username: event.username, password: event.password);
+      debugPrint('response: $response');
+      debugPrint('Finish login user');
+      emit(LoadingUserState(responseText: response));
+      add(LoadUserEvent());
+    }
   }
 
   _onLogoutUser(LogoutUserEvent event, Emitter<UserState> emit) async {
