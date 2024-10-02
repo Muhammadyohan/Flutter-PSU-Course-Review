@@ -42,6 +42,18 @@ class UserModel extends Equatable {
     };
   }
 
+  factory UserModel.empty() {
+    return const UserModel(
+      email: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      lastLoginDate: '',
+      registerDate: '',
+      id: 0,
+    );
+  }
+
   @override
   List<Object?> get props =>
       [email, username, firstName, lastName, lastLoginDate, registerDate, id];

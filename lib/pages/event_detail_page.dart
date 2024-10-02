@@ -19,14 +19,18 @@ class EventDetailPage extends StatelessWidget {
           children: [
             Text(
               eventTitle,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF3E4B92)),
+              style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF3E4B92)),
             ),
             const SizedBox(height: 10),
             const Row(
               children: [
                 Icon(Icons.calendar_today, color: Color(0xFF3E4B92)),
                 SizedBox(width: 8),
-                Text('Sep 17, 2024', style: TextStyle(fontSize: 16, color: Color(0xFF3E4B92))),
+                Text('Sep 17, 2024',
+                    style: TextStyle(fontSize: 16, color: Color(0xFF3E4B92))),
               ],
             ),
             SizedBox(height: 20),

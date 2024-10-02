@@ -18,21 +18,23 @@ class CourseRepoFromDB extends CourseRepository {
     required String courseDescription,
   }) async {
     final Map<String, dynamic> courseData = {
-      'courseCode': courseCode,
-      'courseName': courseName,
-      'courseDescription': courseDescription,
+      'course_code': courseCode,
+      'course_name': courseName,
+      'course_description': courseDescription,
     };
     final response = await apiService.post(baseUri, data: courseData);
 
     if (response.statusCode == 200) {
       return ('Course created successfully');
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to create course');
     }
   }
 
   @override
-  Future<CourseModel> getCourse({required String courseId}) async {
+  Future<CourseModel> getCourse({required int courseId}) async {
     final response = await apiService.get('$baseUri/$courseId');
 
     if (response.statusCode == 200) {
@@ -59,35 +61,37 @@ class CourseRepoFromDB extends CourseRepository {
   }
 
   @override
-  Future<void> updateCourse({
-    required String courseId,
+  Future<String> updateCourse({
+    required int courseId,
     required String courseCode,
     required String courseName,
     required String courseDescription,
-    required String reviewPostAmounts,
   }) async {
     final Map<String, dynamic> courseDataUpdated = {
-      'courseCode': courseCode,
-      'courseName': courseName,
-      'courseDescription': courseDescription,
-      'reviewPostAmounts': reviewPostAmounts,
+      'course_code': courseCode,
+      'course_name': courseName,
+      'course_description': courseDescription,
     };
 
     final response =
         await apiService.put('$baseUri/$courseId', data: courseDataUpdated);
 
     if (response.statusCode == 200) {
-      return;
+      return 'Course updated successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to update course');
     }
   }
 
   @override
-  Future<void> deleteCourse({required String courseId}) async {
+  Future<String> deleteCourse({required int courseId}) async {
     final response = await apiService.delete('$baseUri/$courseId');
     if (response.statusCode == 200) {
-      return;
+      return response.data['message'];
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to delete course');
     }

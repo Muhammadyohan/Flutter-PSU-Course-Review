@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/pages/edit_page_profile.dart';
-import 'package:flutter_psu_course_review/widgets/logout_confirmation_dialog.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class MyProfilePage extends StatefulWidget {
   final TextEditingController _usernameController = TextEditingController(text: "YOHUN");

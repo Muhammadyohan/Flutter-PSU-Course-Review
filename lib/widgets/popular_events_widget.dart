@@ -84,10 +84,10 @@ class PopularEventsWidget extends StatelessWidget {
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 ),
-                child: Image.network(
-                  'https://www.psu.ac.th/static/images/faculty/science.jpg',
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(
+                    'assets/psu-course-review-appbar.jpg',
+                    height: 40,
+                  ),
               ),
             ),
           ],
