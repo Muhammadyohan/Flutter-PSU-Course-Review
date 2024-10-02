@@ -1,23 +1,22 @@
 import 'package:flutter_psu_course_review/models/course_model.dart';
 
 abstract class CourseRepository {
-  Future<void> createCourse({
+  Future<String> createCourse({
     required String courseCode,
     required String courseName,
     required String courseDescription,
   });
 
-  Future<CourseModel> getCourse({required String courseId});
+  Future<CourseModel> getCourse({required int courseId});
 
   Future<List<CourseModel>> getCourses({int page = 1});
 
-  Future<void> updateCourse({
-    required String courseId,
+  Future<String> updateCourse({
+    required int courseId,
     required String courseCode,
     required String courseName,
     required String courseDescription,
-    required String reviewPostAmounts,
   });
 
-  Future<void> deleteCourse({required String courseId});
+  Future<String> deleteCourse({required int courseId});
 }

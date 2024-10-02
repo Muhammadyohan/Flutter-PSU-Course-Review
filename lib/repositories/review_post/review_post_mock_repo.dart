@@ -22,10 +22,73 @@ class ReviewPostMockRepo extends ReviewPostRepository {
         authorName: 'Maew',
         courseCode: '240-003',
         courseName: 'Web developer'),
+    ReviewPostModel(
+        title: '1',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-0004',
+        courseName: 'maew'),
+    ReviewPostModel(
+        title: '2',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-005',
+        courseName: 'Web wqweqe'),
+    ReviewPostModel(
+        title: '3',
+        text: 'yqekqe',
+        authorName: 'Maew',
+        courseCode: '240-006',
+        courseName: 'maew developer'),
   ];
+
   @override
   Future<List<ReviewPostModel>> fetchTasks() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return _tasks;
+  }
+
+  @override
+  Future<String> createReviewPost({
+    required String title,
+    required String text,
+    required int courseId,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ReviewPostModel>> getReviewPosts({
+    int page = 1,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
+    required int courseId,
+    int page = 1,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ReviewPostModel> getReviewPost({required int reviewPostId}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> updateReviewPost({
+    required String title,
+    required String text,
+    required int likesAmount,
+    required int reviewPostId,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> deleteReviewPost({required int reviewPostId}) {
+    throw UnimplementedError();
   }
 }

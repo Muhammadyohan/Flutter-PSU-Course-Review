@@ -76,21 +76,21 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Colors.black,
                     ),
                   ),
                 ),
                 const SizedBox(height: 12.0),
                 Center(
                   child: SizedBox(
-                    width: 400,
                     child: Card(
                       elevation: 8,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      color: const Color.fromARGB(255, 240, 240, 240),
-                      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      color: const Color(0xFF3E4B92),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 16),
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
@@ -101,7 +101,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black87,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -109,7 +109,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               'By ${widget.post.authorName}',
                               style: const TextStyle(
                                 fontSize: 18,
-                                color: Color.fromARGB(255, 0, 0, 0),
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -117,7 +117,7 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                               widget.post.text,
                               style: const TextStyle(
                                 fontSize: 18,
-                                color: Colors.black54,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -127,51 +127,80 @@ class _ReviewPostPageState extends State<ReviewPostPage> {
                                 ElevatedButton.icon(
                                   onPressed: _incrementLike,
                                   icon: const Icon(Icons.thumb_up),
-                                  label: Text('$_likeCount'),
+                                  label: Text(
+                                    '$_likeCount',
+                                  ),
                                 ),
                               ],
                             ),
                             const Divider(thickness: 1),
-                            const Text(
-                              'Comments',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueGrey,
+                            Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: comments.length,
-                              itemBuilder: (context, index) {
-                                final comment = comments[index];
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                  child: Text(
-                                    '${comment.commentAuthor}: ${comment.commentText}',
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                );
-                              },
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: _commentController,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Enter comment here',
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Comments',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
                                     ),
-                                  ),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: comments.length,
+                                      itemBuilder: (context, index) {
+                                        final comment = comments[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0),
+                                          child: Text(
+                                            '${comment.commentAuthor}: ${comment.commentText}',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            color: Colors.grey[300],
+                                            child: TextField(
+                                              controller: _commentController,
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: 'Enter comment here',
+                                              ),
+                                              style: const TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        TextButton(
+                                          onPressed: _addComment,
+                                          child: Image.asset(
+                                            'assets/arrow.jpg',
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 12),
-                                ElevatedButton(
-                                  onPressed: _addComment,
-                                  child: const Text('Send'),
-                                ),
-                              ],
+                              ),
                             ),
                           ],
                         ),

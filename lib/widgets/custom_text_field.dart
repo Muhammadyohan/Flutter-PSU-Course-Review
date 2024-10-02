@@ -5,6 +5,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final IconData prefixIcon;
 
+
   const CustomTextField({
     required this.hintText,
     this.isPassword = false,
