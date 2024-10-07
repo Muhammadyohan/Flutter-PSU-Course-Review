@@ -9,12 +9,12 @@ class EditProfilePage extends StatelessWidget {
   final TextEditingController lastNameController;
 
   const EditProfilePage({
-    Key? key,
+    super.key,
     required this.usernameController,
     required this.emailController,
     required this.firstNameController,
     required this.lastNameController,
-  }) : super(key: key);
+  });
 
   void _saveProfile(BuildContext context) {
     Navigator.pop(context, {

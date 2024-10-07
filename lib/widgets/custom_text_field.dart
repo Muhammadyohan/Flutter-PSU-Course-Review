@@ -6,7 +6,7 @@ class CustomTextField extends StatefulWidget {
   final IconData prefixIcon;
 
 
-  const CustomTextField({
+  const CustomTextField({super.key, 
     required this.hintText,
     this.isPassword = false,
     required this.prefixIcon,

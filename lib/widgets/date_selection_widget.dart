@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart'; // ใช้ TableCalendar สำหรับแสดงปฏิทิน
 
 class DateSelectionWidget extends StatefulWidget {
+  const DateSelectionWidget({super.key});
+
   @override
   _DateSelectionWidgetState createState() => _DateSelectionWidgetState();
 }
@@ -14,7 +16,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
+        return SizedBox(
           height: 400,
           child: TableCalendar(
             focusedDay: focusedDay,
@@ -35,7 +37,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
               todayTextStyle: TextStyle(),
             ),
             formatAnimationCurve: Curves.easeInOut,
-            formatAnimationDuration: Duration(milliseconds: 200),
+            formatAnimationDuration: const Duration(milliseconds: 200),
           ),
         );
       },
@@ -46,12 +48,12 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: GestureDetector(
         onTap: _showCalendar,
-        child: Container(
+        child: SizedBox(
           height: 80,
           child: Center(
             child: Text(
               'Today is : ${selectedDay.day}/${selectedDay.month}/${selectedDay.year}',
-              style: TextStyle(fontSize: 18, color: const Color(0xFF3E4B92)),
+              style: const TextStyle(fontSize: 18, color: Color(0xFF3E4B92)),
             ),
           ),
         ),

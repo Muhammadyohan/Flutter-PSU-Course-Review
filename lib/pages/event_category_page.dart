@@ -9,7 +9,6 @@ class EventCategoryPage extends StatefulWidget {
   const EventCategoryPage({super.key, required this.category});
 
   @override
-  // ignore: library_private_types_in_public_api
   _EventCategoryPageState createState() => _EventCategoryPageState();
 }
 
@@ -17,8 +16,6 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
   final EventRepository _eventRepository = EventMockRepo();
   List<EventModel> _posts = [];
   List<EventModel> _filteredPosts = [];
-  // ignore: unused_field
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -41,7 +38,6 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
 
   void _searchPosts(String query) {
     setState(() {
-      _searchQuery = query;
       if (query.isEmpty) {
         _filteredPosts = _posts;
       } else {

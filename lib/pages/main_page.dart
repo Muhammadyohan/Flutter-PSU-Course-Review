@@ -4,6 +4,8 @@ import '../widgets/widgets.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -13,7 +15,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     Center(child: PSUEventHub()),
-    Center(child: HomePage()),
+    const Center(child: HomePage()),
     Center(child: MyProfilePage()),
   ];
 

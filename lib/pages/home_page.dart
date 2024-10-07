@@ -9,7 +9,6 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -18,8 +17,6 @@ class _HomePageState extends State<HomePage> {
   final ReviewPostMockRepo _repository = ReviewPostMockRepo();
   List<ReviewPostModel> _posts = [];
   List<ReviewPostModel> _filteredPosts = [];
-  // ignore: unused_field
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -41,7 +38,6 @@ class _HomePageState extends State<HomePage> {
 
   void _searchPosts(String query) {
     setState(() {
-      _searchQuery = query;
       if (query.isEmpty) {
         _filteredPosts = _posts;
       } else {

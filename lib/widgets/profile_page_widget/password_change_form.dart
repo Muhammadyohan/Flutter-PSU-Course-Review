@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PasswordChangeForm extends StatefulWidget {
-  const PasswordChangeForm({Key? key}) : super(key: key);
+  const PasswordChangeForm({super.key});
 
   @override
   _PasswordChangeFormState createState() => _PasswordChangeFormState();

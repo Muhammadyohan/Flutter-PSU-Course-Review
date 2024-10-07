@@ -80,7 +80,7 @@ class _LoginFieldState extends State<LoginField> {
           child: TextButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignupPage()));
+                  MaterialPageRoute(builder: (context) => const SignupPage()));
             },
             child: const Text(
               'Don\'t have an account? Sign up',
