@@ -11,6 +11,7 @@ class PopularEventList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final events = context.select((EventBloc bloc) => bloc.state.events);
+    final myUserId = context.select((UserBloc bloc) => bloc.state.user.id);
     return events.isEmpty
         ? const Center(
             child: Text("Nothing to show."),
@@ -25,11 +26,17 @@ class PopularEventList extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            context.read<EventBloc>().add(
+                                  SelectEventEvent(
+                                      eventId: events[index].id,
+                                      eventUserId: events[index].userId,
+                                      myUserId: myUserId),
+                                );
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const EventDetailPage(
-                                    eventTitle: 'งานบอล วิทยาการสาสตร์'),
+                                builder: (context) =>
+                                    EventDetailPage(eventId: events[index].id),
                               ),
                             );
                           },

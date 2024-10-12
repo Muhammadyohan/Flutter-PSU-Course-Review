@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_psu_course_review/pages/authen/login_page.dart';
-import 'package:flutter_psu_course_review/widgets/event_hub/my_event_add_button.dart';
-import 'package:flutter_psu_course_review/widgets/event_hub/popular_event_list.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 import '../../blocs/blocs.dart';
 
 class PopularEventsWidget extends StatelessWidget {
@@ -44,7 +43,7 @@ class PopularEventsWidget extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                                'Your token is expired. Please login again.'),
+                                'You Need to login first.'),
                           ),
                         );
                         Navigator.push(

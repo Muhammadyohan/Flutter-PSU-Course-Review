@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class EventEditButton extends StatefulWidget {
+  const EventEditButton({super.key});
+
   @override
-  _EventEditButtonState createState() => _EventEditButtonState();
+  State<EventEditButton> createState() => _EventEditButtonState();
 }
 
 class _EventEditButtonState extends State<EventEditButton> {
@@ -62,8 +64,7 @@ class _EventEditButtonState extends State<EventEditButton> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                });
+                setState(() {});
                 Navigator.pop(context);
               },
               child: const Text('Save'),
