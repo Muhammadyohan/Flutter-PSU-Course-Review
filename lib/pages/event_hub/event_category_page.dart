@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/event_model.dart';
-import 'package:flutter_psu_course_review/repositories/event/event_mock_repo.dart';
-import 'package:flutter_psu_course_review/repositories/event/event_repository.dart';
+import 'package:flutter_psu_course_review/repositories/repositories.dart';
 
 class EventCategoryPage extends StatefulWidget {
   final String category;

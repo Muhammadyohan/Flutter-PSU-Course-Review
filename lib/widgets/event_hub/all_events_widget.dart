@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/event_category_page.dart';
+import '../../pages/event_hub/event_category_page.dart';
 
 class AllEventsWidget extends StatelessWidget {
   const AllEventsWidget({super.key});

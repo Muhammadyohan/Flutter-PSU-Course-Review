@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
-import 'package:flutter_psu_course_review/widgets/all_popularpost_page.dart';
-import 'package:flutter_psu_course_review/widgets/all_trendingcourse_page.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

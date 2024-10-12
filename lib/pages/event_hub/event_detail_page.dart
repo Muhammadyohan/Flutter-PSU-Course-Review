@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/widgets/event_delete_button.dart';
-import 'package:flutter_psu_course_review/widgets/event_edit_button.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class EventDetailPage extends StatelessWidget {
   final String eventTitle;

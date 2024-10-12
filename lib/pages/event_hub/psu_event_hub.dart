@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/greeting_widget.dart';
-import '../widgets/date_selection_widget.dart';
-import '../widgets/all_events_widget.dart';
-import '../widgets/popular_events_widget.dart';
+import '../../widgets/widgets.dart';
 
 class PSUEventHub extends StatelessWidget {
   const PSUEventHub({super.key});

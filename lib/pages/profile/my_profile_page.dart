@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_psu_course_review/pages/edit_page_profile.dart';
-import 'package:flutter_psu_course_review/pages/login_page.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/widgets/widgets.dart';
-import '../blocs/blocs.dart';
+import '../../blocs/blocs.dart';
 
 class MyProfilePage extends StatelessWidget {
   const MyProfilePage({super.key});
