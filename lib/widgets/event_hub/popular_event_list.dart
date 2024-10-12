@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/blocs.dart';
-import '../pages/event_hub/event_detail_page.dart';
+import '../../blocs/blocs.dart';
+import '../../pages/event_hub/event_detail_page.dart';
 
 class PopularEventList extends StatelessWidget {
   const PopularEventList({
