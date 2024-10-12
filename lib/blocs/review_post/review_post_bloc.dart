@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_psu_course_review/blocs/review_post/review_post_event.dart';
-import 'package:flutter_psu_course_review/blocs/review_post/review_post_state.dart';
+import 'package:flutter_psu_course_review/blocs/blocs.dart';
 import 'package:flutter_psu_course_review/models/review_post_model.dart';
 import 'package:flutter_psu_course_review/repositories/review_post/review_post_repository.dart';
 
@@ -12,7 +11,6 @@ class ReviewPostBloc extends Bloc<ReviewPostEvent, ReviewPostState> {
       : super(LoadingReviewPostState()) {
     on<LoadReviewPostEvent>(_onLoadedReviewPost);
     on<LoadReviewPostsEvent>(_onLoadedReviewPosts);
-    on<LoadReviewPostsByCourseIdEvent>(_onLoadedReviewPostsByCourseId);
     on<CreateReviewPostEvent>(_onCreatedReviewPost);
     on<UpdateReviewPostEvent>(_onUpdatedReviewPost);
     on<DeleteReviewPostEvent>(_onDeletedReviewPost);
@@ -33,16 +31,6 @@ class ReviewPostBloc extends Bloc<ReviewPostEvent, ReviewPostState> {
     if (state is LoadingReviewPostState) {
       final reviewPosts =
           await reviewPostRepository.getReviewPosts(page: event.page);
-      emit(ReadyReviewPostState(
-          reviewPost: ReviewPostModel.empty(), reviewPosts: reviewPosts));
-    }
-  }
-
-  _onLoadedReviewPostsByCourseId(LoadReviewPostsByCourseIdEvent event,
-      Emitter<ReviewPostState> emit) async {
-    if (state is LoadingReviewPostState) {
-      final reviewPosts = await reviewPostRepository.getReviewPostsByCourseId(
-          courseId: event.courseId, page: event.page);
       emit(ReadyReviewPostState(
           reviewPost: ReviewPostModel.empty(), reviewPosts: reviewPosts));
     }

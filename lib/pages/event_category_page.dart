@@ -43,7 +43,7 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
       } else {
         _filteredPosts = _posts.where((post) {
           final titleMatches =
-              post.title.toLowerCase().contains(query.toLowerCase());
+              post.eventTitle.toLowerCase().contains(query.toLowerCase());
           return titleMatches;
         }).toList();
       }
@@ -110,12 +110,7 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      event.title,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'สถานที่ ${event.location}',
+                      event.eventTitle,
                       style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -125,7 +120,7 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
                         const Icon(Icons.calendar_today,
                             color: Colors.white, size: 12),
                         const SizedBox(width: 5),
-                        Text(event.date,
+                        Text(event.eventDate,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 12)),
                       ],

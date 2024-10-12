@@ -14,7 +14,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Center(child: PSUEventHub()),
+    const Center(child: PSUEventHub()),
     const Center(child: HomePage()),
     Center(child: MyProfilePage()),
   ];

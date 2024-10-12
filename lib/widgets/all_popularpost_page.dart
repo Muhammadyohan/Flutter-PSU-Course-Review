@@ -8,7 +8,6 @@ class AllPopularpostPage extends StatefulWidget {
   const AllPopularpostPage({super.key, required this.posts});
 
   @override
-  // ignore: library_private_types_in_public_api
   _AllPopularpostPageState createState() => _AllPopularpostPageState();
 }
 

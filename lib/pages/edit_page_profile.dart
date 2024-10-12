@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/widgets/profile_page_widget/personal_info_form.dart';
-import 'package:flutter_psu_course_review/widgets/profile_page_widget/password_change_form.dart';
+import 'package:flutter_psu_course_review/widgets/personal_info_form.dart';
+import 'package:flutter_psu_course_review/widgets/password_change_form.dart';
 
 class EditProfilePage extends StatelessWidget {
   final TextEditingController usernameController;

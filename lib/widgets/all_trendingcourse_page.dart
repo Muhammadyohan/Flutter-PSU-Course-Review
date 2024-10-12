@@ -8,14 +8,11 @@ class AllTrendingcoursePage extends StatefulWidget {
   const AllTrendingcoursePage({super.key, required this.posts});
 
   @override
-  // ignore: library_private_types_in_public_api
   _AllTrendingcoursePageState createState() => _AllTrendingcoursePageState();
 }
 
 class _AllTrendingcoursePageState extends State<AllTrendingcoursePage> {
   List<ReviewPostModel> _filteredPosts = [];
-  // ignore: unused_field
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -25,7 +22,6 @@ class _AllTrendingcoursePageState extends State<AllTrendingcoursePage> {
 
   void _searchPosts(String query) {
     setState(() {
-      _searchQuery = query;
       if (query.isEmpty) {
         _filteredPosts = widget.posts;
       } else {

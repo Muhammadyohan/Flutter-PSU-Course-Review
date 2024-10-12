@@ -55,27 +55,6 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
   }
 
   @override
-  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
-    required int courseId,
-    int page = 1,
-  }) async {
-    final response = await apiService.get(
-      '$baseUri/course/$courseId',
-      queryParameters: {
-        'page': page,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      reviewPostModelList = ReviewPostModelList.fromJson(response.data);
-      reviewPosts = reviewPostModelList.reviewPosts;
-      return reviewPosts;
-    } else {
-      throw Exception('Failed to get review posts');
-    }
-  }
-
-  @override
   Future<ReviewPostModel> getReviewPost({required int reviewPostId}) async {
     final response = await apiService.get('$baseUri/$reviewPostId');
 

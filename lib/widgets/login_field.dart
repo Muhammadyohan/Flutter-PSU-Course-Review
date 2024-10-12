@@ -57,7 +57,7 @@ class _LoginFieldState extends State<LoginField> {
             onPressed: () {
               _login();
               Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => MainPage()));
+                  context, MaterialPageRoute(builder: (context) => const MainPage()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -135,8 +135,6 @@ class _LoginFieldState extends State<LoginField> {
     context
         .read<UserBloc>()
         .add(LoginUserEvent(username: username, password: password));
-    debugPrint('Username: $username');
-    debugPrint('Password: $password');
     FocusScope.of(context).unfocus();
   }
 }
