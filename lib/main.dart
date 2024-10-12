@@ -18,13 +18,17 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider<UserBloc>(create: (context) {
           final bloc = UserBloc(userRepository: UserRepoFromDb());
-          bloc.add(LoadUserEvent());
+          return bloc;
+        }),
+        BlocProvider<EventBloc>(create: (context) {
+          final bloc = EventBloc(eventRepository: EventRepoFromDb());
+          bloc.add(LoadEventsEvent());
           return bloc;
         })
       ],
       child: const MaterialApp(
         title: 'Flutter App',
-        home: WelcomePage(), // Set the WelcomePage as the initial page
+        home: MainPage(),
       ),
     );
   }

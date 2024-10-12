@@ -2,7 +2,7 @@ import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
 import 'package:flutter_psu_course_review/services/services.dart';
 
-class EventRepoFromDB extends EventRepository {
+class EventRepoFromDb extends EventRepository {
   late List<EventModel> events = [];
 
   late EventModel eventModel;
