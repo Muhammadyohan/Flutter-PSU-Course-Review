@@ -3,19 +3,19 @@ import 'package:flutter_psu_course_review/repositories/event/event_repository.da
 
 class EventMockRepo extends EventRepository {
   final List<EventModel> _task = [
-    const EventModel(
+    EventModel(
         eventTitle: 'งานชกมวย',
         eventDescription: 'สนามบอล',
         eventDate: '17/08/68',
         category: 'Sports',
         authorName: 'Pea'),
-    const EventModel(
+    EventModel(
         eventTitle: 'งานฟุตบอล',
         eventDescription: 'สนามบอล',
         eventDate: '17/08/68',
         category: 'Sports',
         authorName: 'Pea'),
-    const EventModel(
+    EventModel(
         eventTitle: 'งานร้องเพลง',
         eventDescription: 'BSC',
         eventDate: '17/08/68',

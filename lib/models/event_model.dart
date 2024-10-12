@@ -1,16 +1,17 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class EventModel extends Equatable {
-  final String eventTitle;
-  final String eventDescription;
-  final String eventDate;
-  final String category;
+  String eventTitle;
+  String eventDescription;
+  String eventDate;
+  String category;
   final int likesAmount;
   final String authorName;
   final int userId;
   final int id;
 
-  const EventModel({
+  EventModel({
     required this.eventTitle,
     required this.eventDescription,
     required this.eventDate,
@@ -48,7 +49,7 @@ class EventModel extends Equatable {
   }
 
   factory EventModel.empty() {
-    return const EventModel(
+    return EventModel(
       eventTitle: '',
       eventDescription: '',
       eventDate: '',
