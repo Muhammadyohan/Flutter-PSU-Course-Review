@@ -7,12 +7,12 @@ class PersonalInfoForm extends StatelessWidget {
   final TextEditingController lastNameController;
 
   const PersonalInfoForm({
-    Key? key,
+    super.key,
     required this.usernameController,
     required this.emailController,
     required this.firstNameController,
     required this.lastNameController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -88,7 +88,7 @@ class _SignupFieldState extends State<SignupField> {
             onPressed: () {
               _signup();
               Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => MainPage()));
+                  context, MaterialPageRoute(builder: (context) => const MainPage()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,

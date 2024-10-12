@@ -13,11 +13,6 @@ abstract class ReviewPostRepository {
     int page = 1,
   });
 
-  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
-    required int courseId,
-    int page = 1,
-  });
-
   Future<ReviewPostModel> getReviewPost({required int reviewPostId});
 
   Future<String> updateReviewPost({

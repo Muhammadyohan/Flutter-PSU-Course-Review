@@ -10,13 +10,6 @@ class LoadReviewPostsEvent extends ReviewPostEvent {
   LoadReviewPostsEvent({this.page = 1});
 }
 
-class LoadReviewPostsByCourseIdEvent extends ReviewPostEvent {
-  final int courseId;
-  final int page;
-
-  LoadReviewPostsByCourseIdEvent({required this.courseId, this.page = 1});
-}
-
 class CreateReviewPostEvent extends ReviewPostEvent {
   final String title;
   final String text;

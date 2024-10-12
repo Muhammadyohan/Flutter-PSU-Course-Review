@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class EventDetailPage extends StatelessWidget {
   final String eventTitle;
 
-  EventDetailPage({required this.eventTitle});
+  const EventDetailPage({super.key, required this.eventTitle});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(eventTitle),
-        backgroundColor: Color(0xFF3E4B92),
+        backgroundColor: const Color(0xFF3E4B92),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,12 +33,12 @@ class EventDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Color(0xFF3E4B92))),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             const Text(
               'รายละเอียดของกิจกรรมจะถูกแสดงที่นี่. เช่น สถานที่จัดกิจกรรม เวลา และรายละเอียดเพิ่มเติมอื่น ๆ.',
               style: TextStyle(fontSize: 16, color: Color(0xFF3E4B92)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               height: 200,
               decoration: BoxDecoration(

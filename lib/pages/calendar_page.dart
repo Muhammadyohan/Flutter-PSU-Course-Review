@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatelessWidget {
+  const CalendarPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar View'),
-        backgroundColor: Color(0xFF3E4B92),
+        title: const Text('Calendar View'),
+        backgroundColor: const Color(0xFF3E4B92),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

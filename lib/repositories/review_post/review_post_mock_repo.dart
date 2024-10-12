@@ -65,14 +65,6 @@ class ReviewPostMockRepo extends ReviewPostRepository {
   }
 
   @override
-  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
-    required int courseId,
-    int page = 1,
-  }) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<ReviewPostModel> getReviewPost({required int reviewPostId}) {
     throw UnimplementedError();
   }
