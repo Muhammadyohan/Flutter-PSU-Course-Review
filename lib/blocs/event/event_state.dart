@@ -4,14 +4,18 @@ sealed class EventState {
   final List<EventModel> events;
   final EventModel event;
   final String responseText;
+  final bool isMyEvent;
   EventState(
-      {required this.events, required this.event, this.responseText = ''});
+      {required this.events,
+      required this.event,
+      this.responseText = '',
+      this.isMyEvent = false});
 }
 
 const List<EventModel> emptyEventList = [];
 
 class LoadingEventState extends EventState {
-  LoadingEventState({super.responseText})
+  LoadingEventState({super.responseText, super.isMyEvent})
       : super(events: emptyEventList, event: EventModel.empty());
 }
 

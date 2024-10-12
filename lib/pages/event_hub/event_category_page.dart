@@ -8,7 +8,7 @@ class EventCategoryPage extends StatefulWidget {
   const EventCategoryPage({super.key, required this.category});
 
   @override
-  _EventCategoryPageState createState() => _EventCategoryPageState();
+  State<EventCategoryPage> createState() => _EventCategoryPageState();
 }
 
 class _EventCategoryPageState extends State<EventCategoryPage> {

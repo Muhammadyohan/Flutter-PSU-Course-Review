@@ -1,6 +1,6 @@
 export 'event_hub/all_events_widget.dart';
 export 'review_post/all_popularpost_page.dart';
-export './all_trendingcourse_page.dart';
+export 'review_post/all_trendingcourse_page.dart';
 export './custom_text_field.dart';
 export './date_selection_widget.dart';
 export 'event_hub/event_delete_button.dart';
