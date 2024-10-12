@@ -33,7 +33,7 @@ class EventMockRepo extends EventRepository {
       {required String eventTitle,
       required String eventDescription,
       required String eventDate,
-      required String catagory}) {
+      required String category}) {
     throw UnimplementedError();
   }
 
@@ -57,7 +57,7 @@ class EventMockRepo extends EventRepository {
       {required String eventTitle,
       required String eventDescription,
       required String eventDate,
-      required String catagory,
+      required String category,
       required int likesAmount,
       required int eventId}) {
     throw UnimplementedError();

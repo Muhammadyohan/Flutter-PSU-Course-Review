@@ -7,7 +7,7 @@ class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   @override
-  _MainPageState createState() => _MainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
@@ -16,7 +16,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = [
     const Center(child: PSUEventHub()),
     const Center(child: HomePage()),
-    Center(child: MyProfilePage()),
+    const Center(child: MyProfilePage()),
   ];
 
   void _onItemTapped(int index) {
@@ -53,7 +53,6 @@ class _MainPageState extends State<MainPage> {
             }),
           ],
         ),
-        
       ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: Navbar(

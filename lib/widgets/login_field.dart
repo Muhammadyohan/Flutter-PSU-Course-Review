@@ -26,72 +26,94 @@ class _LoginFieldState extends State<LoginField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 20),
-        const Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 30),
-        _customTextField(
-          hintText: 'USERNAME',
-          prefixIcon: Icons.person,
-          controller: _usernameController,
-        ),
-        const SizedBox(height: 20),
-        _customTextField(
-          hintText: 'PASSWORD',
-          isPassword: true,
-          prefixIcon: Icons.lock,
-          controller: _passwordController,
-        ),
-        const SizedBox(height: 40),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              _login();
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => const MainPage()));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              minimumSize: const Size(200, 50),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-            ),
-            child: const Text(
-              'LOGIN',
-              style: TextStyle(
-                color: Color(0xFF3E4B92),
-                fontWeight: FontWeight.bold,
-              ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          const Text(
+            'LOGIN',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignupPage()));
-            },
-            child: const Text(
-              'Don\'t have an account? Sign up',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+          const SizedBox(height: 30),
+          _customTextField(
+            hintText: 'USERNAME',
+            prefixIcon: Icons.person,
+            controller: _usernameController,
+          ),
+          const SizedBox(height: 20),
+          _customTextField(
+            hintText: 'PASSWORD',
+            isPassword: true,
+            prefixIcon: Icons.lock,
+            controller: _passwordController,
+          ),
+          const SizedBox(height: 40),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                _login();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                minimumSize: const Size(200, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+              ),
+              child: const Text(
+                'LOGIN',
+                style: TextStyle(
+                  color: Color(0xFF3E4B92),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 20),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignupPage()));
+              },
+              child: const Text(
+                'Don\'t have an account? Sign up',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MainPage()));
+              },
+              child: const Text(
+                'Back to Home Page',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    decorationColor: Colors.white,
+                    decoration: TextDecoration.underline),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -129,12 +151,42 @@ class _LoginFieldState extends State<LoginField> {
     );
   }
 
-  void _login() {
+  Future<void> _login() async {
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
+      _showSnackBar('Please fill in all fields');
+      return;
+    }
+
     String username = _usernameController.text;
     String password = _passwordController.text;
+
     context
         .read<UserBloc>()
         .add(LoginUserEvent(username: username, password: password));
-    FocusScope.of(context).unfocus();
+
+    // Wait for the UserBloc to process the login event
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    if (!mounted) return;
+
+    // Check the current state of UserBloc
+    final currentState = context.read<UserBloc>().state;
+
+    if (currentState is NeedLoginUserState) {
+      _showSnackBar('Invalid username or password');
+    } else if (currentState is LoadingUserState) {
+      _showSnackBar('Logged in successfully');
+      FocusScope.of(context).unfocus();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
+    } else {
+      _showSnackBar('An error occurred. Please try again.');
+    }
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 }

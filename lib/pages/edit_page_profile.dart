@@ -3,17 +3,22 @@ import 'package:flutter_psu_course_review/widgets/personal_info_form.dart';
 import 'package:flutter_psu_course_review/widgets/password_change_form.dart';
 
 class EditProfilePage extends StatelessWidget {
-  final TextEditingController usernameController;
-  final TextEditingController emailController;
-  final TextEditingController firstNameController;
-  final TextEditingController lastNameController;
+  final String username;
+  final String email;
+  final String firstName;
+  final String lastName;
 
-  const EditProfilePage({
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+
+  EditProfilePage({
     super.key,
-    required this.usernameController,
-    required this.emailController,
-    required this.firstNameController,
-    required this.lastNameController,
+    required this.username,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
   });
 
   void _saveProfile(BuildContext context) {
@@ -50,7 +55,8 @@ class EditProfilePage extends StatelessWidget {
                 onPressed: () => _saveProfile(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF3E4B92),
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),
                 child: const Text(
                   'Save Changes',
