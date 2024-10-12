@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/pages/psu_event_hub.dart';
 import '../widgets/widgets.dart';
 import 'package:flutter_psu_course_review/pages/pages.dart';
 

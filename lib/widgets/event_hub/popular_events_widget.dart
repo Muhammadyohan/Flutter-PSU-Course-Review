@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_psu_course_review/pages/login_page.dart';
+import 'package:flutter_psu_course_review/pages/authen/login_page.dart';
 import 'package:flutter_psu_course_review/widgets/my_event_add_button.dart';
 import 'package:flutter_psu_course_review/widgets/popular_event_list.dart';
 import '../blocs/blocs.dart';

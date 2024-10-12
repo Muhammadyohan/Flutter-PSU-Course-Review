@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
-import 'package:flutter_psu_course_review/pages/review_post_page.dart';
+import 'package:flutter_psu_course_review/pages/review_post/review_post_page.dart';
 
 class AllPopularpostPage extends StatefulWidget {
   final List<ReviewPostModel> posts;
