@@ -14,12 +14,12 @@ class CreateEventEvent extends EventEvent {
   final String eventTitle;
   final String eventDescription;
   final String eventDate;
-  final String catagory;
+  final String category;
   CreateEventEvent({
     required this.eventTitle,
     required this.eventDescription,
     required this.eventDate,
-    required this.catagory,
+    required this.category,
   });
 }
 
@@ -27,14 +27,14 @@ class UpdateEventEvent extends EventEvent {
   final String eventTitle;
   final String eventDescription;
   final String eventDate;
-  final String catagory;
+  final String category;
   final int likesAmount;
   final int eventId;
   UpdateEventEvent({
     required this.eventTitle,
     required this.eventDescription,
     required this.eventDate,
-    required this.catagory,
+    required this.category,
     required this.likesAmount,
     required this.eventId,
   });

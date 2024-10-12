@@ -7,7 +7,7 @@ abstract class EventRepository {
     required String eventTitle,
     required String eventDescription,
     required String eventDate,
-    required String catagory,
+    required String category,
   });
 
   Future<List<EventModel>> getEvents({
@@ -20,7 +20,7 @@ abstract class EventRepository {
     required String eventTitle,
     required String eventDescription,
     required String eventDate,
-    required String catagory,
+    required String category,
     required int likesAmount,
     required int eventId,
   });

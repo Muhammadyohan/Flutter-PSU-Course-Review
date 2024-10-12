@@ -5,7 +5,7 @@ import 'package:flutter_psu_course_review/repositories/user/user_repository.dart
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository;
-  UserBloc({required this.userRepository}) : super(LoadingUserState()) {
+  UserBloc({required this.userRepository}) : super(NeedLoginUserState()) {
     on<LoadUserEvent>(_onLoadedUser);
     on<LoadOtherUserEvent>(_onLoadedOtherUser);
     on<CreateUserEvent>(_onCreatedUser);
@@ -49,8 +49,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (state is NeedLoginUserState) {
       final response = await userRepository.loginUser(
           username: event.username, password: event.password);
-      emit(LoadingUserState(responseText: response));
-      add(LoadUserEvent());
+      if (response == "Logged in successfully") {
+        emit(LoadingUserState(responseText: response));
+      } else {
+        emit(NeedLoginUserState(responseText: response));
+      }
     }
   }
 

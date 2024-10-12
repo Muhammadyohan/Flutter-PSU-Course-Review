@@ -21,12 +21,12 @@ class EventRepoFromDb extends EventRepository {
       {required String eventTitle,
       required String eventDescription,
       required String eventDate,
-      required String catagory}) async {
+      required String category}) async {
     final response = await apiService.post(baseUri, data: {
       'event_title': eventTitle,
       'event_description': eventDescription,
       'event_date': eventDate,
-      'catagory': catagory,
+      'category': category,
     });
 
     if (response.statusCode == 200) {
@@ -80,7 +80,7 @@ class EventRepoFromDb extends EventRepository {
       {required String eventTitle,
       required String eventDescription,
       required String eventDate,
-      required String catagory,
+      required String category,
       required int likesAmount,
       required int eventId}) async {
     final response = await apiService.put(
@@ -89,7 +89,7 @@ class EventRepoFromDb extends EventRepository {
         'event_title': eventTitle,
         'event_description': eventDescription,
         'event_date': eventDate,
-        'catagory': catagory,
+        'category': category,
         'likes_amount': likesAmount,
       },
     );

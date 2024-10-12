@@ -36,7 +36,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         eventTitle: createEvent.eventTitle,
         eventDescription: createEvent.eventDescription,
         eventDate: createEvent.eventDate,
-        catagory: createEvent.catagory,
+        category: createEvent.category,
       );
       emit(LoadingEventState(responseText: response));
       add(LoadEventsEvent());
@@ -50,7 +50,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         eventTitle: updateEvent.eventTitle,
         eventDescription: updateEvent.eventDescription,
         eventDate: updateEvent.eventDate,
-        catagory: updateEvent.catagory,
+        category: updateEvent.category,
         likesAmount: updateEvent.likesAmount,
         eventId: updateEvent.eventId,
       );
