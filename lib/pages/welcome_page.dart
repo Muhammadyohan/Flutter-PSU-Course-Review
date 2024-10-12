@@ -32,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
+                          MaterialPageRoute(builder: (context) => const LoginPage()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF3E4B92),
@@ -53,7 +53,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignupPage()));
+                              builder: (context) => const SignupPage()));
                     },
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Color(0xFF3E4B92)),

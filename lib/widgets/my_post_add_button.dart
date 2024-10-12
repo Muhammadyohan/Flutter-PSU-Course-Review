@@ -7,7 +7,6 @@ class MyPostAddButton extends StatefulWidget {
   const MyPostAddButton({super.key, required this.onPostAdded});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyPostAddButtonState createState() => _MyPostAddButtonState();
 }
 

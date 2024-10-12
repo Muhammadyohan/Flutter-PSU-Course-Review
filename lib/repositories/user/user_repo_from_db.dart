@@ -23,7 +23,7 @@ class UserRepoFromDb extends UserRepository {
       'password': password,
     };
 
-    final response = await apiService.post('$baseUri/create/', data: userData);
+    final response = await apiService.post('$baseUri/create', data: userData);
     if (response.statusCode == 200) {
       return "User created successfully";
     } else if (response.statusCode == 409) {

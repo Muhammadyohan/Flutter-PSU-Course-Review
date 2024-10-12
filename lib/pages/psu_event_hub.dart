@@ -5,9 +5,11 @@ import '../widgets/all_events_widget.dart';
 import '../widgets/popular_events_widget.dart';
 
 class PSUEventHub extends StatelessWidget {
+  const PSUEventHub({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(

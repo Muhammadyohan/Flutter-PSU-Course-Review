@@ -9,7 +9,6 @@ class EventCategoryPage extends StatefulWidget {
   const EventCategoryPage({super.key, required this.category});
 
   @override
-  // ignore: library_private_types_in_public_api
   _EventCategoryPageState createState() => _EventCategoryPageState();
 }
 
@@ -17,8 +16,6 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
   final EventRepository _eventRepository = EventMockRepo();
   List<EventModel> _posts = [];
   List<EventModel> _filteredPosts = [];
-  // ignore: unused_field
-  String _searchQuery = '';
 
   @override
   void initState() {
@@ -41,13 +38,12 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
 
   void _searchPosts(String query) {
     setState(() {
-      _searchQuery = query;
       if (query.isEmpty) {
         _filteredPosts = _posts;
       } else {
         _filteredPosts = _posts.where((post) {
           final titleMatches =
-              post.title.toLowerCase().contains(query.toLowerCase());
+              post.eventTitle.toLowerCase().contains(query.toLowerCase());
           return titleMatches;
         }).toList();
       }
@@ -114,12 +110,7 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      event.title,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'สถานที่ ${event.location}',
+                      event.eventTitle,
                       style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -129,7 +120,7 @@ class _EventCategoryPageState extends State<EventCategoryPage> {
                         const Icon(Icons.calendar_today,
                             color: Colors.white, size: 12),
                         const SizedBox(width: 5),
-                        Text(event.date,
+                        Text(event.eventDate,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 12)),
                       ],

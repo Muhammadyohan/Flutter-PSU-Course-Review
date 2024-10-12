@@ -14,7 +14,7 @@ class CommentMockRepo extends CommentRepository {
   }
 
   @override
-  Future<void> createComment({
+  Future<String> createComment({
     required String text,
     required int reviewPostId,
   }) {
@@ -42,7 +42,7 @@ class CommentMockRepo extends CommentRepository {
   }
 
   @override
-  Future<void> updateComment({
+  Future<String> updateComment({
     required String text,
     required int likesAmount,
     required int commentId,
@@ -51,7 +51,7 @@ class CommentMockRepo extends CommentRepository {
   }
 
   @override
-  Future<void> deleteComment({required int commentId}) {
+  Future<String> deleteComment({required int commentId}) {
     throw UnimplementedError();
   }
 

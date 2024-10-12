@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../pages/event_detail_page.dart';
 
 class PopularEventsWidget extends StatelessWidget {
+  const PopularEventsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,9 +19,9 @@ class PopularEventsWidget extends StatelessWidget {
               color: Color(0xFF3E4B92),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _buildEventCard(context),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
         ],
       ),
     );
@@ -31,7 +33,7 @@ class PopularEventsWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EventDetailPage(eventTitle: 'งานบอล วิทยาการสาสตร์'),
+            builder: (context) => const EventDetailPage(eventTitle: 'งานบอล วิทยาการสาสตร์'),
           ),
         );
       },

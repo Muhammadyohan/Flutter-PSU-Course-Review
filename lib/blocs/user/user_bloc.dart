@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_event.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_state.dart';
 import 'package:flutter_psu_course_review/repositories/user/user_repository.dart';
@@ -18,10 +17,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   _onLoadedUser(LoadUserEvent event, Emitter<UserState> emit) async {
     if (state is LoadingUserState) {
-      debugPrint('LoadingUserState');
-      final user = await userRepository.getMeUser();
-      debugPrint('user: $user');
-      emit(ReadyUserState(user: user));
+      try {
+        final user = await userRepository.getMeUser();
+        emit(ReadyUserState(user: user));
+      } catch (e) {
+        emit(NeedLoginUserState(responseText: e.toString()));
+      }
     }
   }
 
@@ -33,28 +34,29 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onCreatedUser(CreateUserEvent event, Emitter<UserState> emit) async {
-    if (state is ReadyUserState) {
-      final response = await userRepository.createUser(
-        email: event.email,
-        username: event.username,
-        firstName: event.firstName,
-        lastName: event.lastName,
-        password: event.password,
-      );
-      emit(LoadingUserState(responseText: response));
-    }
+    final response = await userRepository.createUser(
+      email: event.email,
+      username: event.username,
+      firstName: event.firstName,
+      lastName: event.lastName,
+      password: event.password,
+    );
+    emit(NeedLoginUserState(responseText: response));
+    add(LoginUserEvent(username: event.username, password: event.password));
   }
 
   _onLoginUser(LoginUserEvent event, Emitter<UserState> emit) async {
-    final response = await userRepository.loginUser(
-        username: event.username, password: event.password);
-    debugPrint('response: $response');
-    emit(LoadingUserState(responseText: response));
+    if (state is NeedLoginUserState) {
+      final response = await userRepository.loginUser(
+          username: event.username, password: event.password);
+      emit(LoadingUserState(responseText: response));
+      add(LoadUserEvent());
+    }
   }
 
   _onLogoutUser(LogoutUserEvent event, Emitter<UserState> emit) async {
     await userRepository.logoutUser();
-    emit(LoadingUserState());
+    emit(NeedLoginUserState(responseText: ""));
   }
 
   _onUpdatedUser(UpdateUserEvent event, Emitter<UserState> emit) async {

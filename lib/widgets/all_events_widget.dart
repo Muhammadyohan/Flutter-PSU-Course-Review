@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../pages/event_category_page.dart';
 
 class AllEventsWidget extends StatelessWidget {
+  const AllEventsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,7 +19,7 @@ class AllEventsWidget extends StatelessWidget {
               color: Color(0xFF3E4B92),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -45,17 +47,17 @@ class AllEventsWidget extends StatelessWidget {
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: Color(0xFF3E4B92),
+          color: const Color(0xFF3E4B92),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: Colors.white, size: 40),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               label,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),

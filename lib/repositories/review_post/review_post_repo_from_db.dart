@@ -30,6 +30,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return 'Review post created successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to create review post');
     }
@@ -42,27 +44,6 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
     final response = await apiService.get(baseUri, queryParameters: {
       'page': page,
     });
-
-    if (response.statusCode == 200) {
-      reviewPostModelList = ReviewPostModelList.fromJson(response.data);
-      reviewPosts = reviewPostModelList.reviewPosts;
-      return reviewPosts;
-    } else {
-      throw Exception('Failed to get review posts');
-    }
-  }
-
-  @override
-  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
-    required int courseId,
-    int page = 1,
-  }) async {
-    final response = await apiService.get(
-      '$baseUri/course/$courseId',
-      queryParameters: {
-        'page': page,
-      },
-    );
 
     if (response.statusCode == 200) {
       reviewPostModelList = ReviewPostModelList.fromJson(response.data);
@@ -103,6 +84,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return 'Review post updated successfully';
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to update review post');
     }
@@ -114,6 +97,8 @@ class ReviewPostRepoFromDB extends ReviewPostRepository {
 
     if (response.statusCode == 200) {
       return response.data['message'];
+    } else if (response.statusCode == 401) {
+      return response.data['detail'];
     } else {
       throw Exception('Failed to delete review post');
     }

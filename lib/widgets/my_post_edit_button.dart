@@ -7,7 +7,6 @@ class MyPostEditButton extends StatefulWidget {
   const MyPostEditButton({super.key, required this.post});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyPostEditButtonState createState() => _MyPostEditButtonState();
 }
 

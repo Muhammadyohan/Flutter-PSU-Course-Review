@@ -3,7 +3,7 @@ import 'package:flutter_psu_course_review/models/models.dart';
 abstract class ReviewPostRepository {
   Future<List<ReviewPostModel>> fetchTasks();
 
-  Future<void> createReviewPost({
+  Future<String> createReviewPost({
     required String title,
     required String text,
     required int courseId,
@@ -13,19 +13,14 @@ abstract class ReviewPostRepository {
     int page = 1,
   });
 
-  Future<List<ReviewPostModel>> getReviewPostsByCourseId({
-    required int courseId,
-    int page = 1,
-  });
-
   Future<ReviewPostModel> getReviewPost({required int reviewPostId});
 
-  Future<void> updateReviewPost({
+  Future<String> updateReviewPost({
     required String title,
     required String text,
     required int likesAmount,
     required int reviewPostId,
   });
 
-  Future<void> deleteReviewPost({required int reviewPostId});
+  Future<String> deleteReviewPost({required int reviewPostId});
 }
