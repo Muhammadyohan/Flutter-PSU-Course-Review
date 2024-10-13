@@ -14,21 +14,7 @@ class MyProfilePage extends StatelessWidget {
       builder: (context, state) {
         final user = context.select((UserBloc bloc) => bloc.state.user);
         return state is NeedLoginUserState
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('You need to login first'),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
-                    },
-                    child: const Text('Go to Login Page'),
-                  )
-                ],
-              )
+            ? _buildNeedToLoginDisplay(context)
             : state is LoadingUserState
                 ? const Center(child: CircularProgressIndicator())
                 : Scaffold(
@@ -93,6 +79,66 @@ class MyProfilePage extends StatelessWidget {
                   );
       },
     );
+  }
+
+  Widget _buildNeedToLoginDisplay(BuildContext context) {
+    return Center(
+    child: Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.lock_outline,
+            size: 64,
+            color: Color(0xFF3E4B92),
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'You need to login first',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF3E4B92),
+            ),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF3E4B92),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              'Go to Login Page',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
   }
 
   Widget _buildProfileInfo(String label, String value) {

@@ -24,83 +24,124 @@ class PopularEventList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            context.read<EventBloc>().add(
-                                  SelectEventEvent(
-                                      eventId: events[index].id,
-                                      eventUserId: events[index].userId,
-                                      myUserId: myUserId),
+                        Hero(
+                          tag: 'event_${events[index].id}',
+                          child: TweenAnimationBuilder(
+                            duration: const Duration(milliseconds: 200),
+                            tween: Tween<double>(begin: 1, end: 0.95),
+                            builder: (context, scale, child) {
+                              return Transform.scale(
+                                scale: scale,
+                                child: child,
+                              );
+                            },
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<EventBloc>().add(
+                                      SelectEventEvent(
+                                          eventId: events[index].id,
+                                          eventUserId: events[index].userId,
+                                          myUserId: myUserId),
+                                    );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EventDetailPage(
+                                        eventId: events[index].id),
+                                  ),
                                 );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    EventDetailPage(eventId: events[index].id),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: 350,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF3E4B92),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          events[index].eventTitle,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Row(
+                              },
+                              child: Container(
+                                width: 350,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFF3E4B92),
+                                      Color(0xFF5C6BC0)
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            const Icon(Icons.calendar_today,
-                                                color: Colors.white, size: 12),
-                                            const SizedBox(width: 5),
-                                            Text(events[index].eventDate,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12)),
+                                            Text(
+                                              events[index].eventTitle,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.event,
+                                                    color: Colors.white70,
+                                                    size: 16),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  events[index].category,
+                                                  style: const TextStyle(
+                                                      color: Colors.white70,
+                                                      fontSize: 14),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.calendar_today,
+                                                    color: Colors.white70,
+                                                    size: 14),
+                                                const SizedBox(width: 8),
+                                                Text(events[index].eventDate,
+                                                    style: const TextStyle(
+                                                        color: Colors.white70,
+                                                        fontSize: 14)),
+                                              ],
+                                            ),
                                           ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                      width: 120,
+                                      height: 80,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(15),
+                                          bottomRight: Radius.circular(15),
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/psu-course-review-appbar.jpg'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/psu-course-review-appbar.jpg',
-                                      height: 40,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
