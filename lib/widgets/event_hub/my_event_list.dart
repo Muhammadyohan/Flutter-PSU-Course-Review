@@ -17,7 +17,7 @@ class MyEventList extends StatelessWidget {
         ? _buildEmptyState()
         : AnimationLimiter(
             child: LimitedBox(
-              maxHeight: 650,
+              maxHeight: 640,
               child: ListView.builder(
                 itemCount: events.length,
                 itemBuilder: (context, index) {

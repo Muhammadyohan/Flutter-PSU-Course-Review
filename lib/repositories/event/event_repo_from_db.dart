@@ -4,6 +4,7 @@ import 'package:flutter_psu_course_review/services/services.dart';
 
 class EventRepoFromDb extends EventRepository {
   late List<EventModel> events = [];
+  late List<EventModel> myEvents = [];
 
   late EventModel eventModel;
   late EventModelList eventModelList;
@@ -22,6 +23,7 @@ class EventRepoFromDb extends EventRepository {
       required String eventDescription,
       required String eventDate,
       required String category}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.post(baseUri, data: {
       'event_title': eventTitle,
       'event_description': eventDescription,
@@ -40,6 +42,7 @@ class EventRepoFromDb extends EventRepository {
 
   @override
   Future<String> deleteEvent({required int eventId}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.delete('$baseUri/$eventId');
     if (response.statusCode == 200) {
       return response.data['message'];
@@ -52,6 +55,7 @@ class EventRepoFromDb extends EventRepository {
 
   @override
   Future<EventModel> getEvent({required int eventId}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.get('$baseUri/$eventId');
     if (response.statusCode == 200) {
       eventModel = EventModel.fromJson(response.data);
@@ -63,12 +67,14 @@ class EventRepoFromDb extends EventRepository {
 
   @override
   Future<List<EventModel>> getEvents({int page = 1}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.get(baseUri, queryParameters: {
       'page': page,
     });
     if (response.statusCode == 200) {
       eventModelList = EventModelList.fromJson(response.data);
       events = eventModelList.events;
+      events.sort((a, b) => a.id.compareTo(b.id));
       return events;
     } else {
       throw Exception('Failed to get events');
@@ -77,16 +83,44 @@ class EventRepoFromDb extends EventRepository {
 
   @override
   Future<List<EventModel>> getMyEvents({int page = 1}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.get('$baseUri/my', queryParameters: {
       'page': page,
     });
     if (response.statusCode == 200) {
       eventModelList = EventModelList.fromJson(response.data);
-      events = eventModelList.events;
-      return events;
+      myEvents = eventModelList.events;
+      myEvents.sort((a, b) => a.id.compareTo(b.id));
+      return myEvents;
     } else {
       throw Exception('Failed to get events');
     }
+  }
+
+  @override
+  Future<List<EventModel>> searchEvents({
+    required String searchQuery,
+    int page = 1,
+  }) async {
+    await Future.delayed(const Duration(seconds: 0));
+    final fiteredEvents = events
+        .where((event) =>
+            event.eventTitle.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+    return fiteredEvents;
+  }
+
+  @override
+  Future<List<EventModel>> searchMyEvents({
+    required String searchQuery,
+    int page = 1,
+  }) async {
+    await Future.delayed(const Duration(seconds: 0));
+    final fiteredEvents = myEvents
+        .where((event) =>
+            event.eventTitle.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+    return fiteredEvents;
   }
 
   @override
@@ -97,6 +131,7 @@ class EventRepoFromDb extends EventRepository {
       required String category,
       required int likesAmount,
       required int eventId}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.put(
       '$baseUri/$eventId',
       data: {
