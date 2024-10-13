@@ -57,7 +57,7 @@ class MyEventPage extends StatelessWidget {
                                     ),
                                   ),
                                   const MyEventsSearchBar(),
-                                  _buildEventCard(context, state),
+                                  _buildEventCard(context),
                                 ],
                               );
                             },
@@ -116,9 +116,7 @@ class MyEventPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEventCard(BuildContext context, EventState state) {
-    return state is LoadingEventState
-        ? const Center(child: CircularProgressIndicator())
-        : const MyEventList();
+  Widget _buildEventCard(BuildContext context) {
+    return const MyEventList();
   }
 }

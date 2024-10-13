@@ -15,10 +15,10 @@ class LoadMyEventsEvent extends EventEvent {
   LoadMyEventsEvent({this.page = 1});
 }
 
-class SearchEventsEvent extends EventEvent {
+class SearchCategotyEventsEvent extends EventEvent {
   final String searchQuery;
   final int page;
-  SearchEventsEvent({
+  SearchCategotyEventsEvent({
     required this.searchQuery,
     this.page = 1,
   });
@@ -35,7 +35,14 @@ class SearchMyEventsEvent extends EventEvent {
 
 class SearchClearEvent extends EventEvent {}
 
-class ActionEventEvent extends EventEvent {}
+class LoadEventsByCategoryEvent extends EventEvent {
+  final String category;
+  final int page;
+  LoadEventsByCategoryEvent({
+    required this.category,
+    this.page = 1,
+  });
+}
 
 class SelectEventEvent extends EventEvent {
   final int eventId;
@@ -45,6 +52,15 @@ class SelectEventEvent extends EventEvent {
       {required this.eventId,
       required this.eventUserId,
       required this.myUserId});
+}
+
+class SelectCategoryEvent extends EventEvent {
+  final String category;
+  final int page;
+  SelectCategoryEvent({
+    required this.category,
+    this.page = 1,
+  });
 }
 
 class CreateEventEvent extends EventEvent {
