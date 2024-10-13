@@ -6,12 +6,12 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../blocs/blocs.dart';
 
-class MyEventList extends StatelessWidget {
-  const MyEventList({super.key});
+class EventCategoryList extends StatelessWidget {
+  const EventCategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final events = context.select((EventBloc bloc) => bloc.state.myEvents);
+    final events = context.select((EventBloc bloc) => bloc.state.categoryEvents);
     final myUserId = context.select((UserBloc bloc) => bloc.state.user.id);
     return events.isEmpty
         ? _buildEmptyState()
@@ -50,7 +50,7 @@ class MyEventList extends StatelessWidget {
           Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            "No Event that you're searching for.",
+            "No event that you're finding.",
             style: TextStyle(fontSize: 18, color: Colors.grey[600]),
           ),
           const SizedBox(height: 8),

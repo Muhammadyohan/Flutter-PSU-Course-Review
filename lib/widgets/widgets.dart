@@ -20,3 +20,5 @@ export 'event_hub/popular_events_widget.dart';
 export "authen/signup_field.dart";
 export './event_hub/my_event_list.dart';
 export './event_hub/my_events_search_bar.dart';
+export './event_hub/event_category_list.dart';
+export './event_hub/event_category_search_bar.dart';

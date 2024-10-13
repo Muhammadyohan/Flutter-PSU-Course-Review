@@ -8,17 +8,19 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   final EventRepository eventRepository;
   List<EventModel> allEventList = [];
   List<EventModel> myEventList = [];
+  List<EventModel> categoryEventList = [];
   EventModel eventModel = EventModel.empty();
 
   EventBloc({required this.eventRepository}) : super(LoadingEventState()) {
     on<LoadEventEvent>(_onLoadedEvent);
     on<LoadEventsEvent>(_onLoadedEvents);
     on<LoadMyEventsEvent>(_onLoadedMyEvents);
-    on<SearchEventsEvent>(_onSearchedEvents);
+    on<LoadEventsByCategoryEvent>(_onLoadedEventsByCategory);
+    on<SearchCategotyEventsEvent>(_onSearchedCategoryEvents);
     on<SearchMyEventsEvent>(_onSearchedMyEvents);
     on<SearchClearEvent>(_onSearchedClear);
-    on<ActionEventEvent>(_onActionEvent);
     on<SelectEventEvent>(_onSelectedEvent);
+    on<SelectCategoryEvent>(_onSelectedCategory);
     on<CreateEventEvent>(_onCreatedEvent);
     on<UpdateEventEvent>(_onUpdatedEvent);
     on<DeleteEventEvent>(_onDeletedEvent);
@@ -27,41 +29,70 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   _onLoadedEvent(LoadEventEvent loadEvent, Emitter<EventState> emit) async {
     eventModel = await eventRepository.getEvent(eventId: loadEvent.eventId);
     emit(ReadyEventState(
-        event: eventModel, myEvents: myEventList, events: allEventList));
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: categoryEventList,
+        events: allEventList));
   }
 
   _onLoadedEvents(LoadEventsEvent loadEvents, Emitter<EventState> emit) async {
     allEventList = await eventRepository.getEvents(page: loadEvents.page);
     emit(ReadyEventState(
-        event: eventModel, myEvents: myEventList, events: allEventList));
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: categoryEventList,
+        events: allEventList));
   }
 
   _onLoadedMyEvents(
       LoadMyEventsEvent loadMyEvents, Emitter<EventState> emit) async {
     myEventList = await eventRepository.getMyEvents(page: loadMyEvents.page);
     emit(ReadyEventState(
-        event: eventModel, myEvents: myEventList, events: allEventList));
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: categoryEventList,
+        events: allEventList));
   }
 
-  _onSearchedEvents(
-      SearchEventsEvent searchEvents, Emitter<EventState> emit) async {
-    allEventList = await eventRepository.searchEvents(
-      searchQuery: searchEvents.searchQuery,
-      page: searchEvents.page,
+  _onLoadedEventsByCategory(LoadEventsByCategoryEvent loadEventsByCategory,
+      Emitter<EventState> emit) async {
+    categoryEventList = await eventRepository.getEvents(
+      page: loadEventsByCategory.page,
     );
+    categoryEventList = categoryEventList
+        .where((event) => event.category == loadEventsByCategory.category)
+        .toList();
     emit(ReadyEventState(
-        event: eventModel, myEvents: myEventList, events: allEventList));
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: categoryEventList,
+        events: allEventList));
+  }
+
+  _onSearchedCategoryEvents(
+      SearchCategotyEventsEvent searchEvents, Emitter<EventState> emit) async {
+    final filteredmyEventList = categoryEventList
+        .where((event) => event.eventTitle
+            .toLowerCase()
+            .contains(searchEvents.searchQuery.toLowerCase()))
+        .toList();
+    emit(ReadyEventState(
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: filteredmyEventList,
+        events: allEventList));
   }
 
   _onSearchedMyEvents(
       SearchMyEventsEvent searchMyEvents, Emitter<EventState> emit) async {
-    final filteredMyEventList = await eventRepository.searchMyEvents(
+    final filteredmyEventList = await eventRepository.searchMyEvents(
       searchQuery: searchMyEvents.searchQuery,
       page: searchMyEvents.page,
     );
     emit(ReadyEventState(
         event: eventModel,
-        myEvents: filteredMyEventList,
+        myEvents: filteredmyEventList,
+        categoryEvents: categoryEventList,
         events: allEventList));
   }
 
@@ -70,11 +101,10 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     allEventList = await eventRepository.getEvents(page: 1);
     myEventList = await eventRepository.getMyEvents(page: 1);
     emit(ReadyEventState(
-        event: eventModel, myEvents: myEventList, events: allEventList));
-  }
-
-  _onActionEvent(ActionEventEvent actionEvent, Emitter<EventState> emit) async {
-    emit(LoadingEventState());
+        event: eventModel,
+        myEvents: myEventList,
+        categoryEvents: categoryEventList,
+        events: allEventList));
   }
 
   _onSelectedEvent(
@@ -84,6 +114,12 @@ class EventBloc extends Bloc<EventEvent, EventState> {
           isMyEvent: isMyEvent(selectEvent.eventUserId, selectEvent.myUserId)));
       add(LoadEventEvent(eventId: selectEvent.eventId));
     }
+  }
+
+  _onSelectedCategory(
+      SelectCategoryEvent selectCategory, Emitter<EventState> emit) async {
+    emit(LoadingEventState());
+    add(LoadEventsByCategoryEvent(category: selectCategory.category, page: 1));
   }
 
   _onCreatedEvent(

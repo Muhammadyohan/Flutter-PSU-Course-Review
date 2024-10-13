@@ -1,156 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_psu_course_review/models/event_model.dart';
-import 'package:flutter_psu_course_review/repositories/repositories.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_psu_course_review/blocs/blocs.dart';
+import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
-class EventCategoryPage extends StatefulWidget {
+class EventCategoryPage extends StatelessWidget {
   final String category;
 
   const EventCategoryPage({super.key, required this.category});
 
   @override
-  State<EventCategoryPage> createState() => _EventCategoryPageState();
-}
-
-class _EventCategoryPageState extends State<EventCategoryPage> {
-  final EventRepository _eventRepository = EventMockRepo();
-  List<EventModel> _posts = [];
-  List<EventModel> _filteredPosts = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchPosts();
-  }
-
-  Future<void> _fetchPosts() async {
-    try {
-      final posts = await _eventRepository.fetchTasks();
-      setState(() {
-        _posts =
-            posts.where((post) => post.category == widget.category).toList();
-        _filteredPosts = _posts;
-      });
-    } catch (e) {
-      // Handle error
-    }
-  }
-
-  void _searchPosts(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        _filteredPosts = _posts;
-      } else {
-        _filteredPosts = _posts.where((post) {
-          final titleMatches =
-              post.eventTitle.toLowerCase().contains(query.toLowerCase());
-          return titleMatches;
-        }).toList();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${widget.category} Events'),
-        backgroundColor: const Color(0xFF3E4B92),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: _searchPosts,
-              decoration: const InputDecoration(
-                labelText: 'Search',
-                border: OutlineInputBorder(),
+        appBar: AppBar(
+          title: Text(
+            '$category Events',
+            style: const TextStyle(color: Colors.white),
+          ),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF3E4B92), Color(0xFF5C6BC0)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _filteredPosts.length,
-              itemBuilder: (context, index) {
-                final event = _filteredPosts[index];
-                return _buildEventCard(context, event);
-              },
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.white, Color(0xFFE8EAF6)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
-        ],
-      ),
-    );
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<EventBloc, EventState>(
+                  builder: (context, state) {
+                    if (state is LoadingEventState) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return state is LoadingEventState
+                        ? const Center(child: CircularProgressIndicator())
+                        : Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: BlocBuilder<EventBloc, EventState>(
+                              builder: (context, state) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const EventCategorySearchBar(),
+                                    _buildEventCard(context),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 
-  Widget _buildEventCard(BuildContext context, EventModel event) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => EventDetailPage(eventTitle: event.title),
-        //   ),
-        // );
-      },
-      child: Container(
-        height: 120,
-        margin: const EdgeInsets.only(bottom: 12),
-        decoration: BoxDecoration(
-          color: const Color(0xFF3E4B92),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      event.eventTitle,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_today,
-                            color: Colors.white, size: 12),
-                        const SizedBox(width: 5),
-                        Text(event.eventDate,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: 120,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                child: Image.network(
-                  'https://www.psu.ac.th/static/images/faculty/science.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  Widget _buildEventCard(BuildContext context) {
+    return const EventCategoryList();
   }
 }

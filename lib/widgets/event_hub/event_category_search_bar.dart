@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_psu_course_review/blocs/blocs.dart';
 
-class MyEventsSearchBar extends StatefulWidget {
-  const MyEventsSearchBar({super.key});
+class EventCategorySearchBar extends StatefulWidget {
+  const EventCategorySearchBar({super.key});
 
   @override
-  State<MyEventsSearchBar> createState() => _MyEventsSearchBarState();
+  State<EventCategorySearchBar> createState() => _EventCategorySearchBarState();
 }
 
-class _MyEventsSearchBarState extends State<MyEventsSearchBar> {
+class _EventCategorySearchBarState extends State<EventCategorySearchBar> {
   final _searchController = TextEditingController();
 
   @override
@@ -26,7 +26,9 @@ class _MyEventsSearchBarState extends State<MyEventsSearchBar> {
         controller: _searchController,
         onTapOutside: (_) => FocusScope.of(context).unfocus(),
         onChanged: (key) {
-          context.read<EventBloc>().add(SearchMyEventsEvent(searchQuery: key));
+          context
+              .read<EventBloc>()
+              .add(SearchCategotyEventsEvent(searchQuery: key));
         },
         decoration: InputDecoration(
           border: OutlineInputBorder(

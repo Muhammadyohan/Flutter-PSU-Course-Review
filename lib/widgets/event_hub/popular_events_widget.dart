@@ -76,6 +76,7 @@ class PopularEventsWidget extends StatelessWidget {
           );
           return;
         }
+        context.read<EventBloc>().add(SearchClearEvent());
         Navigator.push(
           context,
           MaterialPageRoute(

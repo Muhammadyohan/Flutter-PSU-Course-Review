@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_psu_course_review/blocs/blocs.dart';
 import '../../pages/event_hub/event_category_page.dart';
 
 class AllEventsWidget extends StatelessWidget {
@@ -24,7 +26,7 @@ class AllEventsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildEventCategory(context, Icons.music_note, 'Concert'),
-              _buildEventCategory(context, Icons.sports_soccer, 'Sports'),
+              _buildEventCategory(context, Icons.sports_soccer, 'Sport'),
               _buildEventCategory(context, Icons.school, 'Education'),
             ],
           ),
@@ -33,13 +35,15 @@ class AllEventsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildEventCategory(BuildContext context, IconData icon, String label) {
+  Widget _buildEventCategory(
+      BuildContext context, IconData icon, String category) {
     return GestureDetector(
       onTap: () {
+        context.read<EventBloc>().add(SelectCategoryEvent(category: category));
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EventCategoryPage(category: label),
+            builder: (context) => EventCategoryPage(category: category),
           ),
         );
       },
@@ -56,7 +60,7 @@ class AllEventsWidget extends StatelessWidget {
             Icon(icon, color: Colors.white, size: 40),
             const SizedBox(height: 5),
             Text(
-              label,
+              category,
               style: const TextStyle(color: Colors.white),
             ),
           ],
