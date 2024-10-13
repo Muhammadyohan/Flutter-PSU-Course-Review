@@ -157,22 +157,8 @@ class MyEventList extends StatelessWidget {
                         'assets/psu-course-review-appbar.jpg',
                         height: 60,
                         width: 60,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit, color: Colors.white),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.delete, color: Colors.white),
-                        ),
-                      ],
                     ),
                   ],
                 ),

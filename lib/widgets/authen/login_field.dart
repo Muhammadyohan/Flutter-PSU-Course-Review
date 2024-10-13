@@ -98,7 +98,7 @@ class _LoginFieldState extends State<LoginField> {
           Center(
             child: TextButton(
               onPressed: () {
-                Navigator.push(context,
+                Navigator.pop(context,
                     MaterialPageRoute(builder: (context) => const MainPage()));
               },
               child: const Text(
@@ -180,7 +180,7 @@ class _LoginFieldState extends State<LoginField> {
       context.read<UserBloc>().add(LoadUserEvent());
       _showSnackBar('Logged in successfully');
       FocusScope.of(context).unfocus();
-      Navigator.pushReplacement(
+      Navigator.pop(
           context, MaterialPageRoute(builder: (context) => const MainPage()));
     } else {
       _showSnackBar('An error occurred. Please try again.');

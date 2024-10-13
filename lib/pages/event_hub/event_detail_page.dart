@@ -32,8 +32,7 @@ class EventDetailPage extends StatelessWidget {
                           title: Text(event.authorName),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
+                          padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
                           child: Text(
                             event.eventTitle,
                             style: const TextStyle(
@@ -127,7 +126,9 @@ class EventDetailPage extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) => const EventDeleteButton(),
+                builder: (context) => EventDeleteButton(
+                  eventId: event.id,
+                ),
               );
             },
           ),
