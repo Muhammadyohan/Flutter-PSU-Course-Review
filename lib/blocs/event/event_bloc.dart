@@ -69,9 +69,8 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       SearchClearEvent searchClear, Emitter<EventState> emit) async {
     allEventList = await eventRepository.getEvents(page: 1);
     myEventList = await eventRepository.getMyEvents(page: 1);
-    emit(LoadingEventState());
-    add(LoadEventsEvent());
-    add(LoadMyEventsEvent());
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
   }
 
   _onActionEvent(ActionEventEvent actionEvent, Emitter<EventState> emit) async {
