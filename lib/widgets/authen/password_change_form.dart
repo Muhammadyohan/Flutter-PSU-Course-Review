@@ -4,7 +4,7 @@ class PasswordChangeForm extends StatefulWidget {
   const PasswordChangeForm({super.key});
 
   @override
-  _PasswordChangeFormState createState() => _PasswordChangeFormState();
+  State<PasswordChangeForm> createState() => _PasswordChangeFormState();
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {

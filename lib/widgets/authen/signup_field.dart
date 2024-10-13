@@ -20,6 +20,8 @@ class _SignupFieldState extends State<SignupField> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -28,6 +30,7 @@ class _SignupFieldState extends State<SignupField> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -81,14 +84,13 @@ class _SignupFieldState extends State<SignupField> {
           hintText: 'CONFIRM PASSWORD',
           isConfirmPassword: true,
           prefixIcon: Icons.lock,
+          controller: _confirmPasswordController,
         ),
         const SizedBox(height: 40),
         Center(
           child: ElevatedButton(
             onPressed: () {
               _signup();
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => const MainPage()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -110,7 +112,7 @@ class _SignupFieldState extends State<SignupField> {
         Center(
           child: TextButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.pop(context,
                   MaterialPageRoute(builder: (context) => const LoginPage()));
             },
             child: const Text(
@@ -161,7 +163,20 @@ class _SignupFieldState extends State<SignupField> {
     );
   }
 
-  void _signup() {
+  Future<void> _signup() async {
+    if (_usernameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _firstNameController.text.isEmpty ||
+        _lastNameController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty) {
+      _showSnackBar('Please fill in all fields');
+      return;
+    } else if (_passwordController.text != _confirmPasswordController.text) {
+      _showSnackBar('Passwords do not match of Confirm Password');
+      return;
+    }
+
     String username = _usernameController.text;
     String email = _emailController.text;
     String firstName = _firstNameController.text;
@@ -175,6 +190,53 @@ class _SignupFieldState extends State<SignupField> {
         lastName: lastName,
         password: password));
 
+    // Wait for the user to be created and logged in
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (!mounted) return;
+
+    //Check the current response text
+    final currentState = context.read<UserBloc>().state;
+
+    if (currentState is NeedLoginUserState) {
+      _showSnackBar('This username is exists');
+    } else if (currentState is ReadyUserState) {
+      _showSnackBar('User created successfully');
+      Navigator.pop(context);
+      Navigator.pop(
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
+    } else {
+      _showSnackBar('An error occurred. Please try again.');
+    }
+
     FocusScope.of(context).unfocus();
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        backgroundColor: const Color(0xFF3E4B92),
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        action: SnackBarAction(
+          label: 'Dismiss',
+          textColor: Colors.white,
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
   }
 }

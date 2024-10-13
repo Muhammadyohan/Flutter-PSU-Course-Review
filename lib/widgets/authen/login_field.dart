@@ -185,6 +185,8 @@ class _LoginFieldState extends State<LoginField> {
     } else {
       _showSnackBar('An error occurred. Please try again.');
     }
+
+    FocusScope.of(context).unfocus();
   }
 
   void _showSnackBar(String message) {

@@ -50,13 +50,8 @@ class MyEventList extends StatelessWidget {
           Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            "No Event that you're searching for.",
+            "No Event that you're finding.",
             style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "Tap the '+' button to create one!",
-            style: TextStyle(fontSize: 14, color: Colors.grey[400]),
           ),
         ],
       ),
