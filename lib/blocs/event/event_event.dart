@@ -15,6 +15,26 @@ class LoadMyEventsEvent extends EventEvent {
   LoadMyEventsEvent({this.page = 1});
 }
 
+class SearchEventsEvent extends EventEvent {
+  final String searchQuery;
+  final int page;
+  SearchEventsEvent({
+    required this.searchQuery,
+    this.page = 1,
+  });
+}
+
+class SearchMyEventsEvent extends EventEvent {
+  final String searchQuery;
+  final int page;
+  SearchMyEventsEvent({
+    required this.searchQuery,
+    this.page = 1,
+  });
+}
+
+class SearchClearEvent extends EventEvent {}
+
 class ActionEventEvent extends EventEvent {}
 
 class SelectEventEvent extends EventEvent {

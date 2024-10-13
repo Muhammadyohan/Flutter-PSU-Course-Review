@@ -20,6 +20,16 @@ abstract class EventRepository {
     int page = 1,
   });
 
+  Future<List<EventModel>> searchEvents({
+    required String searchQuery,
+    int page = 1,
+  });
+
+  Future<List<EventModel>> searchMyEvents({
+    required String searchQuery,
+    int page = 1,
+  });
+
   Future<String> updateEvent({
     required String eventTitle,
     required String eventDescription,

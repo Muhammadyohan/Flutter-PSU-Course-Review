@@ -11,7 +11,7 @@ class MyEventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Event', style: TextStyle(color: Colors.white)),
+        title: const Text('My Events', style: TextStyle(color: Colors.white)),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -30,39 +30,43 @@ class MyEventPage extends StatelessWidget {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<EventBloc, EventState>(
-              builder: (context, state) {
-                if (context.read<UserBloc>().state is NeedLoginUserState) {
-                  return _tokenExpiredUiDisplay(context);
-                }
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: BlocBuilder<EventBloc, EventState>(
-                    builder: (context, state) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'My Events',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF3E4B92),
-                            ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<EventBloc, EventState>(
+                builder: (context, state) {
+                  if (context.read<UserBloc>().state is NeedLoginUserState) {
+                    return _tokenExpiredUiDisplay(context);
+                  }
+                  return state is LoadingEventState
+                      ? const Center(child: CircularProgressIndicator())
+                      : Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: BlocBuilder<EventBloc, EventState>(
+                            builder: (context, state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'My Events',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF3E4B92),
+                                    ),
+                                  ),
+                                  const MyEventsSearchBar(),
+                                  _buildEventCard(context, state),
+                                ],
+                              );
+                            },
                           ),
-                          const SizedBox(height: 16),
-                          _buildEventCard(context, state),
-                        ],
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
+                        );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: _addEventButton(context),

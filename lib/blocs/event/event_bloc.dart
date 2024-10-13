@@ -14,6 +14,9 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     on<LoadEventEvent>(_onLoadedEvent);
     on<LoadEventsEvent>(_onLoadedEvents);
     on<LoadMyEventsEvent>(_onLoadedMyEvents);
+    on<SearchEventsEvent>(_onSearchedEvents);
+    on<SearchMyEventsEvent>(_onSearchedMyEvents);
+    on<SearchClearEvent>(_onSearchedClear);
     on<ActionEventEvent>(_onActionEvent);
     on<SelectEventEvent>(_onSelectedEvent);
     on<CreateEventEvent>(_onCreatedEvent);
@@ -36,6 +39,36 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   _onLoadedMyEvents(
       LoadMyEventsEvent loadMyEvents, Emitter<EventState> emit) async {
     myEventList = await eventRepository.getMyEvents(page: loadMyEvents.page);
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
+  }
+
+  _onSearchedEvents(
+      SearchEventsEvent searchEvents, Emitter<EventState> emit) async {
+    allEventList = await eventRepository.searchEvents(
+      searchQuery: searchEvents.searchQuery,
+      page: searchEvents.page,
+    );
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
+  }
+
+  _onSearchedMyEvents(
+      SearchMyEventsEvent searchMyEvents, Emitter<EventState> emit) async {
+    final filteredMyEventList = await eventRepository.searchMyEvents(
+      searchQuery: searchMyEvents.searchQuery,
+      page: searchMyEvents.page,
+    );
+    emit(ReadyEventState(
+        event: eventModel,
+        myEvents: filteredMyEventList,
+        events: allEventList));
+  }
+
+  _onSearchedClear(
+      SearchClearEvent searchClear, Emitter<EventState> emit) async {
+    allEventList = await eventRepository.getEvents(page: 1);
+    myEventList = await eventRepository.getMyEvents(page: 1);
     emit(ReadyEventState(
         event: eventModel, myEvents: myEventList, events: allEventList));
   }

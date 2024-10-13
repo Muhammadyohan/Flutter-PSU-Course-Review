@@ -68,4 +68,16 @@ class EventMockRepo extends EventRepository {
     // TODO: implement getMyEvents
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<EventModel>> searchEvents({required String searchQuery, int page = 1}) {
+    // TODO: implement searchEvents
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List<EventModel>> searchMyEvents({required String searchQuery, int page = 1}) {
+    // TODO: implement searchMyEvents
+    throw UnimplementedError();
+  }
 }
