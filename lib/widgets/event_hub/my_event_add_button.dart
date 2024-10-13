@@ -21,6 +21,7 @@ class _MyEventAddButtonState extends State<MyEventAddButton>
   String _selectedCategory = "Education";
 
   DateTime _selectedDate = DateTime.now();
+  String _selectedDateText = '';
   final List<String> _monthNames = [
     'Jan',
     'Feb',
@@ -49,6 +50,8 @@ class _MyEventAddButtonState extends State<MyEventAddButton>
     _animation =
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
     _animationController.forward();
+    _selectedDateText =
+        '${_selectedDate.toLocal().day} ${_monthNames[_selectedDate.toLocal().month - 1]} ${_selectedDate.toLocal().year}';
   }
 
   @override
@@ -80,6 +83,8 @@ class _MyEventAddButtonState extends State<MyEventAddButton>
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
+        _selectedDateText =
+            '${picked.toLocal().day} ${_monthNames[picked.toLocal().month - 1]} ${picked.toLocal().year}';
       });
     }
   }
@@ -255,8 +260,7 @@ class _MyEventAddButtonState extends State<MyEventAddButton>
       final newEvent = EventModel(
         eventTitle: _titleController.text,
         eventDescription: _descriptionController.text,
-        eventDate:
-            '${_selectedDate.toLocal().day} ${_monthNames[_selectedDate.toLocal().month - 1]} ${_selectedDate.toLocal().year}',
+        eventDate: _selectedDateText,
         category: _selectedCategory,
         authorName: "",
       );

@@ -81,6 +81,8 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       );
       emit(LoadingEventState(responseText: response));
       add(LoadEventsEvent());
+      add(LoadMyEventsEvent());
+      add(LoadEventEvent(eventId: updateEvent.eventId));
     }
   }
 
