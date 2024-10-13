@@ -10,13 +10,13 @@ class MyEventAddButton extends StatefulWidget {
   State<MyEventAddButton> createState() => _MyEventAddButtonState();
 }
 
-class _MyEventAddButtonState extends State<MyEventAddButton> {
-  double _inputHeight = 50;
+class _MyEventAddButtonState extends State<MyEventAddButton>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
-  final _catagories = ['Education', 'Concert', 'Sport'];
+  final _categories = ['Education', 'Concert', 'Sport'];
 
   String _selectedCategory = "Education";
 
@@ -36,41 +36,47 @@ class _MyEventAddButtonState extends State<MyEventAddButton> {
     'Dec'
   ];
 
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
-    _descriptionController.addListener(_checkInputHeight);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animation =
+        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
+    _animationController.forward();
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
+    _animationController.dispose();
     super.dispose();
-  }
-
-  void _checkInputHeight() async {
-    int count = _descriptionController.text.split('\n').length;
-
-    if (count == 0 && _inputHeight != 50.0) {
-      return;
-    }
-    if (count <= 5) {
-      // use a maximum height of 6 rows
-      // height values can be adapted based on the font size
-      var newHeight = count == 0 ? 50.0 : 28.0 + (count * 18.0);
-      setState(() {
-        _inputHeight = newHeight;
-      });
-    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: _selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.blue,
+            colorScheme: const ColorScheme.light(primary: Colors.blue),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+    );
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
@@ -83,110 +89,185 @@ class _MyEventAddButtonState extends State<MyEventAddButton> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add New Event"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF3E4B92), Color(0xFF5C6BC0)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Event Title'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the event title';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                const Text('Event Category', style: TextStyle(fontSize: 17.0)),
-                FormField<String>(
-                  builder: (state) {
-                    return InputDecorator(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                      ),
-                      isEmpty: _selectedCategory == '',
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: _selectedCategory,
-                          isDense: true,
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {
-                              setState(() {
-                                _selectedCategory = newValue;
-                                state.didChange(newValue);
-                              });
-                            }
-                          },
-                          items: _catagories.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+      body: FadeTransition(
+        opacity: _animation,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _titleAndCategoryInputForm(),
+                  const SizedBox(height: 16.0),
+                  _dateInputForm(context),
+                  const SizedBox(height: 16.0),
+                  _descriptionInputForm(),
+                  const SizedBox(height: 16.0),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: _submitForm,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        backgroundColor: const Color(0xFF3E4B92),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                const Text('Event Date', style: TextStyle(fontSize: 17.0)),
-                Text(
-                    "  ${_selectedDate.toLocal().day} ${_monthNames[_selectedDate.toLocal().month - 1]} ${_selectedDate.toLocal().year}"),
-                ElevatedButton(
-                  onPressed: () => _selectDate(context),
-                  child: const Text('Select date'),
-                ),
-                TextFormField(
-                  controller: _descriptionController,
-                  textInputAction: TextInputAction.newline,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  decoration:
-                      const InputDecoration(labelText: 'Event Description'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the event description';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final newEvent = EventModel(
-                          eventTitle: _titleController.text,
-                          eventDescription: _descriptionController.text,
-                          eventDate:
-                              '${_selectedDate.day} ${_monthNames[_selectedDate.month - 1]} ${_selectedDate.year}',
-                          category: _selectedCategory,
-                          authorName: "",
-                        );
-                        _addEvent(
-                            eventTitle: newEvent.eventTitle,
-                            eventDescription: newEvent.eventDescription,
-                            eventDate: newEvent.eventDate,
-                            category: newEvent.category);
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: const Text('Submit'),
+                      child: const Text('Submit',
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Card _descriptionInputForm() {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TextFormField(
+          controller: _descriptionController,
+          maxLines: null,
+          decoration: InputDecoration(
+            labelText: 'Event Description',
+            alignLabelWithHint: true,
+            prefixIcon: const Icon(Icons.description),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter the event description';
+            }
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
+  Card _dateInputForm(BuildContext context) {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Event Date',
+                style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8.0),
+            InkWell(
+              onTap: () => _selectDate(context),
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  prefixIcon: const Icon(Icons.calendar_today),
+                ),
+                child: Text(
+                  "  ${_selectedDate.toLocal().day} ${_monthNames[_selectedDate.toLocal().month - 1]} ${_selectedDate.toLocal().year}",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Card _titleAndCategoryInputForm() {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                labelText: 'Event Title',
+                prefixIcon: const Icon(Icons.title),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the event title';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            DropdownButtonFormField<String>(
+              value: _selectedCategory,
+              decoration: InputDecoration(
+                labelText: 'Event Category',
+                prefixIcon: const Icon(Icons.category),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              items: _categories.map((String category) {
+                return DropdownMenuItem<String>(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    _selectedCategory = newValue;
+                  });
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final newEvent = EventModel(
+        eventTitle: _titleController.text,
+        eventDescription: _descriptionController.text,
+        eventDate:
+            '${_selectedDate.toLocal().day} ${_monthNames[_selectedDate.toLocal().month - 1]} ${_selectedDate.toLocal().year}',
+        category: _selectedCategory,
+        authorName: "",
+      );
+      _addEvent(
+        eventTitle: newEvent.eventTitle,
+        eventDescription: newEvent.eventDescription,
+        eventDate: newEvent.eventDate,
+        category: newEvent.category,
+      );
+      Navigator.pop(context);
+    }
   }
 
   void _addEvent(
