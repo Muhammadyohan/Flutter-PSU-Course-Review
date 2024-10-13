@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_psu_course_review/pages/authen/login_page.dart';
+import 'package:flutter_psu_course_review/pages/pages.dart';
 import 'package:flutter_psu_course_review/widgets/widgets.dart';
 import '../../blocs/blocs.dart';
 
@@ -29,7 +29,7 @@ class PopularEventsWidget extends StatelessWidget {
                   ),
                   TextButton(
                     child: const Text(
-                      'Add Event',
+                      'My Event',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -41,21 +41,25 @@ class PopularEventsWidget extends StatelessWidget {
                       if (context.read<UserBloc>().state
                           is NeedLoginUserState) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'You Need to login first.'),
+                          SnackBar(
+                            action: SnackBarAction(
+                                label: 'Go to Login Page',
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage()));
+                                }),
+                            content: const Text('You Need to login first.'),
                           ),
                         );
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPage()));
                         return;
                       }
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MyEventAddButton(),
+                          builder: (context) => const MyEventPage(),
                         ),
                       );
                     },

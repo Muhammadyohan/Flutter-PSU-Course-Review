@@ -6,12 +6,15 @@ import 'package:flutter_psu_course_review/utilities/utilities.dart';
 
 class EventBloc extends Bloc<EventEvent, EventState> {
   final EventRepository eventRepository;
-  List<EventModel> eventList = [];
+  List<EventModel> allEventList = [];
+  List<EventModel> myEventList = [];
   EventModel eventModel = EventModel.empty();
 
   EventBloc({required this.eventRepository}) : super(LoadingEventState()) {
     on<LoadEventEvent>(_onLoadedEvent);
     on<LoadEventsEvent>(_onLoadedEvents);
+    on<LoadMyEventsEvent>(_onLoadedMyEvents);
+    on<ActionEventEvent>(_onActionEvent);
     on<SelectEventEvent>(_onSelectedEvent);
     on<CreateEventEvent>(_onCreatedEvent);
     on<UpdateEventEvent>(_onUpdatedEvent);
@@ -19,17 +22,26 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   }
 
   _onLoadedEvent(LoadEventEvent loadEvent, Emitter<EventState> emit) async {
-    if (state is LoadingEventState) {
-      eventModel = await eventRepository.getEvent(eventId: loadEvent.eventId);
-      emit(ReadyEventState(event: eventModel, events: eventList));
-    }
+    eventModel = await eventRepository.getEvent(eventId: loadEvent.eventId);
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
   }
 
   _onLoadedEvents(LoadEventsEvent loadEvents, Emitter<EventState> emit) async {
-    if (state is LoadingEventState) {
-      eventList = await eventRepository.getEvents(page: loadEvents.page);
-      emit(ReadyEventState(event: eventModel, events: eventList));
-    }
+    allEventList = await eventRepository.getEvents(page: loadEvents.page);
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
+  }
+
+  _onLoadedMyEvents(
+      LoadMyEventsEvent loadMyEvents, Emitter<EventState> emit) async {
+    myEventList = await eventRepository.getMyEvents(page: loadMyEvents.page);
+    emit(ReadyEventState(
+        event: eventModel, myEvents: myEventList, events: allEventList));
+  }
+
+  _onActionEvent(ActionEventEvent actionEvent, Emitter<EventState> emit) async {
+    emit(LoadingEventState());
   }
 
   _onSelectedEvent(

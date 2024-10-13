@@ -16,6 +16,10 @@ abstract class EventRepository {
 
   Future<EventModel> getEvent({required int eventId});
 
+  Future<List<EventModel>> getMyEvents({
+    int page = 1,
+  });
+
   Future<String> updateEvent({
     required String eventTitle,
     required String eventDescription,

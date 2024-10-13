@@ -21,7 +21,6 @@ class _MyEventAddButtonState extends State<MyEventAddButton> {
   String _selectedCategory = "Education";
 
   DateTime _selectedDate = DateTime.now();
-  String _selectedDateText = '';
   final List<String> _monthNames = [
     'Jan',
     'Feb',
@@ -75,8 +74,6 @@ class _MyEventAddButtonState extends State<MyEventAddButton> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _selectedDateText =
-            '${_selectedDate.day} ${_monthNames[_selectedDate.month - 1]} ${_selectedDate.year}';
       });
     }
   }
@@ -168,7 +165,8 @@ class _MyEventAddButtonState extends State<MyEventAddButton> {
                         final newEvent = EventModel(
                           eventTitle: _titleController.text,
                           eventDescription: _descriptionController.text,
-                          eventDate: _selectedDateText,
+                          eventDate:
+                              '${_selectedDate.day} ${_monthNames[_selectedDate.month - 1]} ${_selectedDate.year}',
                           category: _selectedCategory,
                           authorName: "",
                         );

@@ -13,7 +13,7 @@ class PSUEventHub extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GreetingWidget(),
+              // GreetingWidget(),
               DateSelectionWidget(),
               AllEventsWidget(),
               PopularEventsWidget(),

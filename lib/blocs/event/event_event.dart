@@ -10,6 +10,13 @@ class LoadEventsEvent extends EventEvent {
   LoadEventsEvent({this.page = 1});
 }
 
+class LoadMyEventsEvent extends EventEvent {
+  final int page;
+  LoadMyEventsEvent({this.page = 1});
+}
+
+class ActionEventEvent extends EventEvent {}
+
 class SelectEventEvent extends EventEvent {
   final int eventId;
   final int eventUserId;

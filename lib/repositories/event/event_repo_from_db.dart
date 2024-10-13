@@ -76,6 +76,20 @@ class EventRepoFromDb extends EventRepository {
   }
 
   @override
+  Future<List<EventModel>> getMyEvents({int page = 1}) async {
+    final response = await apiService.get('$baseUri/my', queryParameters: {
+      'page': page,
+    });
+    if (response.statusCode == 200) {
+      eventModelList = EventModelList.fromJson(response.data);
+      events = eventModelList.events;
+      return events;
+    } else {
+      throw Exception('Failed to get events');
+    }
+  }
+
+  @override
   Future<String> updateEvent(
       {required String eventTitle,
       required String eventDescription,
