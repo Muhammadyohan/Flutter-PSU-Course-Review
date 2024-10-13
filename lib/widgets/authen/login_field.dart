@@ -165,7 +165,7 @@ class _LoginFieldState extends State<LoginField> {
         .add(LoginUserEvent(username: username, password: password));
 
     // Wait for the UserBloc to process the login event
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(seconds: 1));
 
     if (!mounted) return;
 
@@ -176,6 +176,7 @@ class _LoginFieldState extends State<LoginField> {
       _showSnackBar('Invalid username or password');
     } else if (currentState is LoadingUserState) {
       context.read<EventBloc>().add(LoadEventsEvent());
+      context.read<EventBloc>().add(LoadMyEventsEvent());
       context.read<UserBloc>().add(LoadUserEvent());
       _showSnackBar('Logged in successfully');
       FocusScope.of(context).unfocus();

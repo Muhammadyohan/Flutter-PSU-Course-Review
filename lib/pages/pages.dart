@@ -12,3 +12,4 @@ export 'review_post/review_post_page.dart';
 export 'review_post/review_post_search.dart';
 export 'authen/signup_page.dart';
 export 'authen/welcome_page.dart';
+export './event_hub/my_event_page.dart';

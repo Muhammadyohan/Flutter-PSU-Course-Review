@@ -30,7 +30,7 @@ class EventDetailPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EventEditButton(),
+                                builder: (context) => const EventEditButton(),
                               ));
                         },
                         child: const Icon(Icons.edit)),
@@ -43,7 +43,7 @@ class EventDetailPage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return EventDeleteButton();
+                              return const EventDeleteButton();
                             },
                           );
                         },
