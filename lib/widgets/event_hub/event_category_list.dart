@@ -53,11 +53,6 @@ class EventCategoryList extends StatelessWidget {
             "No event that you're finding.",
             style: TextStyle(fontSize: 18, color: Colors.grey[600]),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Tap the '+' button to create one!",
-            style: TextStyle(fontSize: 14, color: Colors.grey[400]),
-          ),
         ],
       ),
     );

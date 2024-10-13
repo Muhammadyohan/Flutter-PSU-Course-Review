@@ -9,7 +9,6 @@ class MyProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserBloc>().add(LoadUserEvent());
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         final user = context.select((UserBloc bloc) => bloc.state.user);
@@ -57,7 +56,7 @@ class MyProfilePage extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () =>
                                   showLogoutConfirmationDialog(context, () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>

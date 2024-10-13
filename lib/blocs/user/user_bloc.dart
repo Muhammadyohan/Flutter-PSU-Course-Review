@@ -51,6 +51,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           username: event.username, password: event.password);
       if (response == "Logged in successfully") {
         emit(LoadingUserState(responseText: response));
+        add(LoadUserEvent());
       } else {
         emit(NeedLoginUserState(responseText: response));
       }
