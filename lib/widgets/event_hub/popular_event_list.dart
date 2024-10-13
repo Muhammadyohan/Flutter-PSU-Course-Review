@@ -135,7 +135,7 @@ class PopularEventList extends StatelessWidget {
                                         image: DecorationImage(
                                           image: AssetImage(
                                               'assets/psu-course-review-appbar.jpg'),
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
