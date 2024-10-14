@@ -105,7 +105,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
         firstName: _firstNameController.text,
         lastName: _lastNameController.text));
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
 
     if (!mounted) return;
 

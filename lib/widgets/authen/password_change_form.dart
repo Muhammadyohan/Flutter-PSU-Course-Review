@@ -74,8 +74,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      _showLoadingDialog(context);
-      _changePassword(context, widget.userId);
+      _showConfirmationDialog(context);
     }
   }
 
@@ -89,7 +88,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
         currentPassword: _currentPasswordController.text,
         newPassword: _newPasswordController.text));
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
 
     if (!mounted) return;
 
@@ -173,6 +172,128 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
         ),
         const SizedBox(height: 16),
       ],
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+    bool passwordsMatch = true;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  const BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    offset: Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text(
+                    'Confirm Password Change',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF3E4B92),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Please confirm your new password:',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: confirmPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm New Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF3E4B92), width: 2),
+                      ),
+                      prefixIcon:
+                          const Icon(Icons.lock, color: Color(0xFF3E4B92)),
+                    ),
+                  ),
+                  if (!passwordsMatch)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Passwords do not match',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      TextButton(
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(color: Colors.grey, fontSize: 18),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF3E4B92),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                        ),
+                        child: const Text(
+                          'Confirm',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        onPressed: () {
+                          if (_newPasswordController.text ==
+                              confirmPasswordController.text) {
+                            Navigator.of(context).pop();
+                            _showLoadingDialog(context);
+                            _changePassword(context, widget.userId);
+                          } else {
+                            setState(() {
+                              passwordsMatch = false;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+      },
     );
   }
 

@@ -177,7 +177,7 @@ class _LoginFieldState extends State<LoginField> {
         .add(LoginUserEvent(username: username, password: password));
 
     // Wait for the UserBloc to process the login event
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
 
     setState(() {
       _isLoading = false;
