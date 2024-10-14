@@ -211,6 +211,7 @@ class _MyEventAddButtonState extends State<MyEventAddButton>
           children: [
             TextFormField(
               controller: _titleController,
+              maxLines: null,
               decoration: InputDecoration(
                 labelText: 'Event Title',
                 prefixIcon: const Icon(Icons.title),

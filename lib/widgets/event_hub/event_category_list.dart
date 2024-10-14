@@ -104,6 +104,8 @@ class EventCategoryList extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -151,8 +153,8 @@ class EventCategoryList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
                         'assets/psu_event_hub.png',
-                        height: 60,
-                        width: 60,
+                        height: 100,
+                        width: 100,
                         fit: BoxFit.contain,
                       ),
                     ),

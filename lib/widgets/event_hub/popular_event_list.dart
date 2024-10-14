@@ -91,6 +91,8 @@ class PopularEventList extends StatelessWidget {
                                                 fontSize: 16,
                                                 letterSpacing: 0.5,
                                               ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
                                             ),
                                             const SizedBox(height: 8),
                                             Row(
