@@ -9,6 +9,7 @@ class MyProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserBloc>().add(LoadUserEvent());
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         final user = context.select((UserBloc bloc) => bloc.state.user);
@@ -46,7 +47,8 @@ class MyProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Center(
-                              child: Icon(Icons.person, size: 70, color:Color(0xFF3E4B92)),
+                              child: Icon(Icons.person,
+                                  size: 70, color: Color(0xFF3E4B92)),
                             ),
                             const SizedBox(height: 24),
                             _buildProfileInfo('Username', user.username),

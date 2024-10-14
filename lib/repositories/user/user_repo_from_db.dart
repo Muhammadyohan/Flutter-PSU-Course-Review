@@ -83,12 +83,13 @@ class UserRepoFromDb extends UserRepository {
     required String newPassword,
   }) async {
     final response = await apiService.put(
-      '$baseUri/$userId/change_password/',
+      '$baseUri/$userId/change_password',
       data: {
         'current_password': currentPassword,
         'new_password': newPassword,
       },
     );
+    debugPrint('header: ${response.headers}');
     if (response.statusCode == 200) {
       return response.data['message'];
     } else if (response.statusCode == 401) {
