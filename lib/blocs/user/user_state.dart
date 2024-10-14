@@ -11,8 +11,7 @@ class LoadingUserState extends UserState {
 }
 
 class NeedLoginUserState extends UserState {
-  NeedLoginUserState({super.responseText})
-      : super(user: UserModel.empty());
+  NeedLoginUserState({super.responseText}) : super(user: UserModel.empty());
 }
 
 class ReadyUserState extends UserState {
@@ -20,6 +19,6 @@ class ReadyUserState extends UserState {
 }
 
 class ErrorUserState extends UserState {
-  ErrorUserState({required super.responseText})
+  ErrorUserState({super.responseText})
       : super(user: UserModel.empty());
 }

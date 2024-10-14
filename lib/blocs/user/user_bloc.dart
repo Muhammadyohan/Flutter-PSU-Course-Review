@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_event.dart';
 import 'package:flutter_psu_course_review/blocs/user/user_state.dart';
 import 'package:flutter_psu_course_review/repositories/user/user_repository.dart';
@@ -16,7 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onLoadedUser(LoadUserEvent event, Emitter<UserState> emit) async {
-    if (state is LoadingUserState) {
+    if (state is LoadingUserState || state is ErrorUserState) {
       try {
         final user = await userRepository.getMeUser();
         emit(ReadyUserState(user: user));
@@ -27,7 +28,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onLoadedOtherUser(LoadOtherUserEvent event, Emitter<UserState> emit) async {
-    if (state is LoadingUserState) {
+    if (state is LoadingUserState || state is ErrorUserState) {
       final user = await userRepository.getOtherUser(userId: event.userId);
       emit(ReadyUserState(user: user));
     }
@@ -46,15 +47,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onLoginUser(LoginUserEvent event, Emitter<UserState> emit) async {
-    if (state is NeedLoginUserState) {
+    if (state is NeedLoginUserState || state is ErrorUserState) {
       final response = await userRepository.loginUser(
           username: event.username, password: event.password);
-      if (response == "Logged in successfully") {
-        emit(LoadingUserState(responseText: response));
-        add(LoadUserEvent());
-      } else {
-        emit(NeedLoginUserState(responseText: response));
-      }
+      emit(LoadingUserState(responseText: response));
+      add(LoadUserEvent());
     }
   }
 
@@ -64,7 +61,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onUpdatedUser(UpdateUserEvent event, Emitter<UserState> emit) async {
-    if (state is ReadyUserState) {
+    if (state is ReadyUserState || state is ErrorUserState) {
+      emit(ErrorUserState());
       final response = await userRepository.updateUser(
         userId: event.userId,
         verifyPassword: event.verifyPassword,
@@ -80,7 +78,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   _onChengedPasswordUser(
       ChangePasswordUserEvent event, Emitter<UserState> emit) async {
-    if (state is ReadyUserState) {
+    if (state is ReadyUserState || state is ErrorUserState) {
       final response = await userRepository.changePasswordUser(
         userId: event.userId,
         currentPassword: event.currentPassword,
