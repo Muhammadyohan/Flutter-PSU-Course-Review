@@ -13,9 +13,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_linkify: ^6.0.0
   flutter_staggered_animations: ^1.1.1
   shared_preferences: ^2.3.2
   table_calendar: ^3.0.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
@@ -27,5 +29,7 @@ flutter:
   assets:
     - assets/psu-course-review.jpeg
     - assets/psu-course-review-appbar.jpg
+    - assets/psu-course-review-appbar.png
+    - assets/psu_event_hub.png
     - assets/arrow.jpg
 

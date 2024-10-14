@@ -23,7 +23,7 @@ class UserRepoFromDb extends UserRepository {
       'last_name': lastName,
       'password': password,
     };
-
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.post('$baseUri/create', data: userData);
     if (response.statusCode == 200) {
       return "User created successfully";
@@ -40,6 +40,7 @@ class UserRepoFromDb extends UserRepository {
     required String username,
     required String password,
   }) async {
+    await Future.delayed(const Duration(seconds: 0));
     final responseText =
         await apiService.login(username: username, password: password);
     return responseText;
@@ -47,11 +48,13 @@ class UserRepoFromDb extends UserRepository {
 
   @override
   Future<void> logoutUser() async {
+    await Future.delayed(const Duration(seconds: 0));
     await apiService.logout();
   }
 
   @override
   Future<UserModel> getMeUser() async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.get('$baseUri/me');
     if (response.statusCode == 200) {
       user = UserModel.fromJson(response.data);
@@ -65,6 +68,7 @@ class UserRepoFromDb extends UserRepository {
 
   @override
   Future<UserModel> getOtherUser({required int userId}) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.get('$baseUri/$userId');
     if (response.statusCode == 200) {
       user = UserModel.fromJson(response.data);
@@ -82,6 +86,7 @@ class UserRepoFromDb extends UserRepository {
     required String currentPassword,
     required String newPassword,
   }) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.put(
       '$baseUri/$userId/change_password',
       data: {
@@ -110,6 +115,7 @@ class UserRepoFromDb extends UserRepository {
     required String firstName,
     required String lastName,
   }) async {
+    await Future.delayed(const Duration(seconds: 0));
     final response = await apiService.put(
       '$baseUri/update/$userId/$verifyPassword',
       data: {

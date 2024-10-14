@@ -15,7 +15,7 @@ class SignupPage extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/psu-course-review-appbar.jpg',
+                    'assets/psu_event_hub.png',
                     height: 40,
                   ),
                   const SizedBox(width: 10),
