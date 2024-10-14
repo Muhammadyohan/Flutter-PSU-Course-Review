@@ -17,13 +17,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onLoadedUser(LoadUserEvent event, Emitter<UserState> emit) async {
-    if (state is LoadingUserState || state is ErrorUserState) {
-      try {
-        final user = await userRepository.getMeUser();
-        emit(ReadyUserState(user: user));
-      } catch (e) {
-        emit(NeedLoginUserState(responseText: e.toString()));
-      }
+    try {
+      debugPrint('User is loading');
+      final user = await userRepository.getMeUser();
+      emit(ReadyUserState(user: user));
+      debugPrint('User loading success');
+    } catch (e) {
+      debugPrint('Error loading user');
+      emit(NeedLoginUserState(responseText: e.toString()));
     }
   }
 
@@ -79,6 +80,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   _onChengedPasswordUser(
       ChangePasswordUserEvent event, Emitter<UserState> emit) async {
     if (state is ReadyUserState || state is ErrorUserState) {
+      emit(ErrorUserState());
       final response = await userRepository.changePasswordUser(
         userId: event.userId,
         currentPassword: event.currentPassword,

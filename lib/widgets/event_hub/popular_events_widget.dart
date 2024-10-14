@@ -45,6 +45,7 @@ class PopularEventsWidget extends StatelessWidget {
   }
 
   Widget _myEventButton(BuildContext context) {
+    final userBloc = context.read<UserBloc>();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
@@ -70,7 +71,8 @@ class PopularEventsWidget extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        if (context.read<UserBloc>().state is NeedLoginUserState) {
+        userBloc.add(LoadUserEvent());
+        if (userBloc.state is NeedLoginUserState) {
           ScaffoldMessenger.of(context).showSnackBar(
             _showLoginRequiredScnackBar(context),
           );

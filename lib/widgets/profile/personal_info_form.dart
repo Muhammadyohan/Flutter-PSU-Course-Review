@@ -109,7 +109,6 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
     if (!mounted) return;
 
     final currentState = userBloc.state;
-    debugPrint("currentState: $currentState");
 
     if (currentState is ErrorUserState) {
       _showSnackBar(scaffoldMessenger, 'Incorrect password');

@@ -35,7 +35,7 @@ class EditProfilePage extends StatelessWidget {
               lastName: lastName,
             ),
             const SizedBox(height: 16),
-            const PasswordChangeForm(),
+            PasswordChangeForm(userId: userId),
           ],
         ),
       ),
