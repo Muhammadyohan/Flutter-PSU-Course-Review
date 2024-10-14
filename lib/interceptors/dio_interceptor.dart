@@ -13,7 +13,8 @@ class DioInterceptor extends Interceptor {
     }
 
     options.headers['Content-Type'] = 'application/json';
-    options.baseUrl = 'http://10.0.2.2:8000';
+    options.baseUrl = 'https://psu-course-review-api-4agb.onrender.com';
+    // options.baseUrl = 'http://10.0.2.2:8000';
 
     super.onRequest(options, handler);
   }
