@@ -164,18 +164,23 @@ class _SignupFieldState extends State<SignupField> {
   }
 
   Future<void> _signup() async {
+    final userBloc = context.read<UserBloc>();
+    final navigator = Navigator.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     if (_usernameController.text.isEmpty ||
         _emailController.text.isEmpty ||
         _firstNameController.text.isEmpty ||
         _lastNameController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty) {
-      _showSnackBar('Please fill in all fields');
+      _showSnackBar(scaffoldMessenger, 'Please fill in all fields');
       return;
     } else if (_passwordController.text != _confirmPasswordController.text) {
-      _showSnackBar('Passwords do not match of Confirm Password');
+      _showSnackBar(scaffoldMessenger, 'Passwords do not match of Confirm Password');
       return;
     }
+
+    _showLoadingDialog(context);
 
     String username = _usernameController.text;
     String email = _emailController.text;
@@ -183,7 +188,7 @@ class _SignupFieldState extends State<SignupField> {
     String lastName = _lastNameController.text;
     String password = _passwordController.text;
 
-    context.read<UserBloc>().add(CreateUserEvent(
+    userBloc.add(CreateUserEvent(
         username: username,
         email: email,
         firstName: firstName,
@@ -191,28 +196,78 @@ class _SignupFieldState extends State<SignupField> {
         password: password));
 
     // Wait for the user to be created and logged in
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 4));
 
     if (!mounted) return;
 
+    navigator.pop(); // Close the loading dialog
+
     //Check the current response text
-    final currentState = context.read<UserBloc>().state;
+    final currentState = userBloc.state;
 
     if (currentState is NeedLoginUserState) {
-      _showSnackBar('This username is exists');
+      _showSnackBar(scaffoldMessenger, 'This username is exists');
     } else if (currentState is ReadyUserState) {
-      _showSnackBar('User created successfully');
-      Navigator.pop(context);
+      _showSnackBar(scaffoldMessenger, 'User created successfully');
+      navigator.pop();
       Navigator.pop(
           context, MaterialPageRoute(builder: (context) => const MainPage()));
     } else {
-      _showSnackBar('An error occurred. Please try again.');
+      _showSnackBar(scaffoldMessenger, 'An error occurred. Please try again.');
     }
 
     FocusScope.of(context).unfocus();
   }
 
-  void _showSnackBar(String message) {
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFF3E4B92)),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Signing Up...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF3E4B92),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSnackBar(ScaffoldMessengerState messengerState, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(

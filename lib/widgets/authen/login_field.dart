@@ -13,6 +13,7 @@ class LoginField extends StatefulWidget {
 }
 
 class _LoginFieldState extends State<LoginField> {
+  bool _isLoading = false;
   bool _obscureText = true;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -55,9 +56,7 @@ class _LoginFieldState extends State<LoginField> {
           const SizedBox(height: 40),
           Center(
             child: ElevatedButton(
-              onPressed: () {
-                _login();
-              },
+              onPressed: _isLoading ? null : _login,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 minimumSize: const Size(200, 50),
@@ -65,13 +64,22 @@ class _LoginFieldState extends State<LoginField> {
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
-              child: const Text(
-                'LOGIN',
-                style: TextStyle(
-                  color: Color(0xFF3E4B92),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: _isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : const Text(
+                      'LOGIN',
+                      style: TextStyle(
+                        color: Color(0xFF3E4B92),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
           const SizedBox(height: 20),
@@ -157,6 +165,10 @@ class _LoginFieldState extends State<LoginField> {
       return;
     }
 
+    setState(() {
+      _isLoading = true;
+    });
+
     String username = _usernameController.text;
     String password = _passwordController.text;
 
@@ -165,7 +177,11 @@ class _LoginFieldState extends State<LoginField> {
         .add(LoginUserEvent(username: username, password: password));
 
     // Wait for the UserBloc to process the login event
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 3));
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if (!mounted) return;
 

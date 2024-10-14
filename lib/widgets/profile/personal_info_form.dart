@@ -87,6 +87,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      _showLoadingDialog(context);
       _saveProfile(context, widget.userId);
     }
   }
@@ -104,16 +105,18 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
         firstName: _firstNameController.text,
         lastName: _lastNameController.text));
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (!mounted) return;
+
+    navigator.pop(); // Close the loading dialog
 
     final currentState = userBloc.state;
 
     if (currentState is ErrorUserState) {
       _showSnackBar(scaffoldMessenger, 'Incorrect password');
     } else if (currentState is ReadyUserState) {
-      navigator.pop();
+      navigator.pop(); // Close the form screen
       _showSnackBar(scaffoldMessenger, 'Profile updated successfully');
     }
   }
@@ -155,6 +158,54 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
         ),
         const SizedBox(height: 16),
       ],
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFF3E4B92)),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Updating Profile...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF3E4B92),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
