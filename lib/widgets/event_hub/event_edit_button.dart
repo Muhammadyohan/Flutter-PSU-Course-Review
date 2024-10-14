@@ -217,6 +217,7 @@ class _EventEditButtonState extends State<EventEditButton> {
           children: [
             TextFormField(
               controller: _titleController,
+              maxLines: null,
               decoration: InputDecoration(
                 labelText: 'Event Title',
                 prefixIcon: const Icon(Icons.title),

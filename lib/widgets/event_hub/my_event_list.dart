@@ -88,78 +88,84 @@ class MyEventList extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            event.eventTitle,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.event,
+                                color: Colors.white70, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                              event.category,
+                              style: const TextStyle(
+                                  color: Colors.white70, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_today,
+                                color: Colors.white, size: 14),
+                            const SizedBox(width: 8),
+                            Text(
+                              event.eventDate,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        event.eventTitle,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/psu_event_hub.png',
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.contain,
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          const Icon(Icons.event,
-                              color: Colors.white70, size: 16),
-                          const SizedBox(width: 8),
-                          Text(
-                            event.category,
-                            style: const TextStyle(
-                                color: Colors.white70, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          const Icon(Icons.calendar_today,
-                              color: Colors.white, size: 14),
-                          const SizedBox(width: 8),
-                          Text(
-                            event.eventDate,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 14),
-                          ),
-                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-              Container(
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/psu_event_hub.png',
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
