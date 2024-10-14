@@ -36,15 +36,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   _onCreatedUser(CreateUserEvent event, Emitter<UserState> emit) async {
-    final response = await userRepository.createUser(
-      email: event.email,
-      username: event.username,
-      firstName: event.firstName,
-      lastName: event.lastName,
-      password: event.password,
-    );
-    emit(NeedLoginUserState(responseText: response));
-    add(LoginUserEvent(username: event.username, password: event.password));
+    if (state is NeedLoginUserState || state is ErrorUserState) {
+      final response = await userRepository.createUser(
+        email: event.email,
+        username: event.username,
+        firstName: event.firstName,
+        lastName: event.lastName,
+        password: event.password,
+      );
+      emit(NeedLoginUserState(responseText: response));
+      add(LoginUserEvent(username: event.username, password: event.password));
+    }
   }
 
   _onLoginUser(LoginUserEvent event, Emitter<UserState> emit) async {
