@@ -8,11 +8,19 @@ class PasswordChangeForm extends StatefulWidget {
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   bool _isPasswordChangeVisible = false;
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,9 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 'Change Password',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Icon(_isPasswordChangeVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down),
+              Icon(_isPasswordChangeVisible
+                  ? Icons.arrow_drop_up
+                  : Icons.arrow_drop_down),
             ],
           ),
         ),
@@ -49,6 +59,10 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
         _buildPasswordField('Old Password', _oldPasswordController),
         _buildPasswordField('New Password', _newPasswordController),
         _buildPasswordField('Confirm Password', _confirmPasswordController),
+        ElevatedButton(
+          onPressed: _submitForm,
+          child: const Text('Change Password'),
+        ),
       ],
     );
   }
@@ -57,13 +71,15 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Text(label,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
         TextField(
           controller: controller,
           obscureText: true,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
             ),

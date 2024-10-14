@@ -174,7 +174,7 @@ class _LoginFieldState extends State<LoginField> {
 
     if (currentState is NeedLoginUserState) {
       _showSnackBar('Invalid username or password');
-    } else if (currentState is LoadingUserState) {
+    } else if (currentState is ReadyUserState) {
       context.read<EventBloc>().add(LoadEventsEvent());
       context.read<EventBloc>().add(LoadMyEventsEvent());
       context.read<UserBloc>().add(LoadUserEvent());

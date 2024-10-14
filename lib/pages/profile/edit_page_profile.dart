@@ -2,32 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/widgets/widgets.dart';
 
 class EditProfilePage extends StatelessWidget {
+  final int userId;
   final String username;
   final String email;
   final String firstName;
   final String lastName;
 
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-
-  EditProfilePage({
-    super.key,
-    required this.username,
-    required this.email,
-    required this.firstName,
-    required this.lastName,
-  });
-
-  void _saveProfile(BuildContext context) {
-    Navigator.pop(context, {
-      'username': usernameController.text,
-      'email': emailController.text,
-      'firstName': firstNameController.text,
-      'lastName': lastNameController.text,
-    });
-  }
+  const EditProfilePage(
+      {super.key,
+      required this.userId,
+      required this.username,
+      required this.email,
+      required this.firstName,
+      required this.lastName});
 
   @override
   Widget build(BuildContext context) {
@@ -41,28 +28,14 @@ class EditProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PersonalInfoForm(
-              usernameController: usernameController,
-              emailController: emailController,
-              firstNameController: firstNameController,
-              lastNameController: lastNameController,
+              userId: userId,
+              username: username,
+              email: email,
+              firstName: firstName,
+              lastName: lastName,
             ),
             const SizedBox(height: 16),
             const PasswordChangeForm(),
-            const SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () => _saveProfile(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3E4B92),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                ),
-                child: const Text(
-                  'Save Changes',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
           ],
         ),
       ),

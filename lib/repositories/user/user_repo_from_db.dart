@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/repositories/repositories.dart';
 import 'package:flutter_psu_course_review/services/api_service.dart';
@@ -120,6 +121,7 @@ class UserRepoFromDb extends UserRepository {
     if (response.statusCode == 200) {
       return "User updated successfully";
     } else if (response.statusCode == 401) {
+      debugPrint('response: ${response.data}');
       return response.data['detail'];
     } else if (response.statusCode == 404) {
       return response.data['detail'];
