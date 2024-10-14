@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Image.asset(
-              'assets/psu-course-review-appbar.jpg',
+              'assets/psu_event_hub.png',
               width: 130,
               height: 130,
             ),

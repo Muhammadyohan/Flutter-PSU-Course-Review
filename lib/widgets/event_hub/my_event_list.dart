@@ -150,9 +150,9 @@ class MyEventList extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
-                        'assets/psu-course-review-appbar.jpg',
-                        height: 60,
-                        width: 60,
+                        'assets/psu_event_hub.png',
+                        height: 100,
+                        width: 100,
                         fit: BoxFit.contain,
                       ),
                     ),

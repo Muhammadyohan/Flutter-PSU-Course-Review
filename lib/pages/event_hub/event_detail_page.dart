@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_psu_course_review/blocs/blocs.dart';
 import 'package:flutter_psu_course_review/models/models.dart';
 import 'package:flutter_psu_course_review/widgets/widgets.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailPage extends StatelessWidget {
   final int eventId;
@@ -45,9 +47,18 @@ class EventDetailPage extends StatelessWidget {
                         Padding(
                           padding:
                               const EdgeInsets.fromLTRB(20.0, 5, 16.0, 16.0),
-                          child: Text(
-                            event.eventDescription,
+                          child: Linkify(
+                            onOpen: (link) async {
+                              final Uri url = Uri.parse(link.url);
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            text: event.eventDescription,
                             style: const TextStyle(fontSize: 16),
+                            linkStyle: const TextStyle(color: Colors.blue),
                           ),
                         ),
                         Padding(
